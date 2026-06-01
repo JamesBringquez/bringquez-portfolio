@@ -2,7 +2,9 @@
 
 Personal portfolio website showcasing my work as a **Web Developer**, **Web Designer**, and **Front-end Developer**, with a growing focus on **UI/UX design**.
 
-**Live site:** [bringquez-portfolio.vercel.app](https://bringquez-portfolio.vercel.app/)
+**Live site:** [bringquez-portfolio.vercel.app](https://bringquez-portfolio.vercel.app/)  
+**Repository:** [github.com/JamesBringquez/bringquez-portfolio](https://github.com/JamesBringquez/bringquez-portfolio)  
+**Vercel dashboard:** [vercel.com/.../bringquez-portfolio](https://vercel.com/james-matthew-bringquezs-projects/bringquez-portfolio)
 
 ---
 
