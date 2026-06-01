@@ -3,8 +3,7 @@
 Personal portfolio website showcasing my work as a **Web Developer**, **Web Designer**, and **Front-end Developer**, with a growing focus on **UI/UX design**.
 
 **Live site:** [bringquez-portfolio.vercel.app](https://bringquez-portfolio.vercel.app/)  
-**Repository:** [github.com/JamesBringquez/bringquez-portfolio](https://github.com/JamesBringquez/bringquez-portfolio)  
-**Vercel dashboard:** [vercel.com/.../bringquez-portfolio](https://vercel.com/james-matthew-bringquezs-projects/bringquez-portfolio)
+**GitHub:** [github.com/JamesBringquez/bringquez-portfolio](https://github.com/JamesBringquez/bringquez-portfolio)
 
 ---
 
@@ -18,9 +17,9 @@ I hold **1 year & 2 months** of professional experience in **Web Development** a
 
 ### Connect
 
-- **GitHub:** [github.com/JamesBringquez](https://github.com/JamesBringquez)
+- **Portfolio:** [bringquez-portfolio.vercel.app](https://bringquez-portfolio.vercel.app/)
+- **GitHub:** [github.com/JamesBringquez/bringquez-portfolio](https://github.com/JamesBringquez/bringquez-portfolio)
 - **LinkedIn:** [linkedin.com/in/james-matthew-bringquez](https://www.linkedin.com/in/james-matthew-bringquez/)
-- **Vercel:** [vercel.com/james-matthew-bringquezs-projects](https://vercel.com/james-matthew-bringquezs-projects)
 
 ---
 
@@ -241,70 +240,6 @@ Set `liveUrl` on a project in `portfolio.ts` — the card will open that URL in 
 - **Experience** section: combined work + education timelines; skills consolidated into **Skills & Tools** (including AI-assisted workflow).
 - **Project routing:** demos open in new tabs without portfolio navbar; dedicated routes for ARKĒ and Sera.
 - **Assets:** brand banner for ARKĒ card, sakura sky photo for Sera card, product image set under `public/images/arke/`.
-
----
-
-## Deploy to GitHub & Vercel
-
-Yes — this project is ready to host on **GitHub** and deploy on **Vercel** (Vite + React Router; `vercel.json` handles client-side routes like `/projects/arke-clothing`).
-
-### 1. Push to GitHub
-
-**Prerequisites:** [Git](https://git-scm.com/download/win) installed, and a [GitHub](https://github.com) account.
-
-In a terminal (PowerShell or Git Bash), from the `portfolio` folder:
-
-```bash
-git init
-git add .
-git commit -m "Initial portfolio: ARKĒ store, Sera bot, and main site"
-```
-
-Create a new empty repository on GitHub (e.g. `portfolio` or `bringquez-portfolio`), then:
-
-```bash
-git remote add origin https://github.com/JamesBringquez/YOUR-REPO-NAME.git
-git branch -M main
-git push -u origin main
-```
-
-Replace `YOUR-REPO-NAME` with your actual repository name.
-
-### 2. Deploy on Vercel
-
-**Option A — Import from GitHub (recommended)**
-
-1. Sign in at [vercel.com](https://vercel.com) (use your GitHub account).
-2. **Add New… → Project** → import the repository you just pushed.
-3. Vercel should auto-detect **Vite**:
-   - **Build Command:** `npm run build`
-   - **Output Directory:** `dist`
-   - **Install Command:** `npm install`
-4. Click **Deploy**.
-
-Every push to `main` can trigger a new deployment if you leave Git integration enabled.
-
-**Option B — Vercel CLI**
-
-```bash
-npm i -g vercel
-cd portfolio
-vercel
-```
-
-Follow the prompts to link the project and deploy.
-
-### 3. After deploy
-
-- Test the live URL: homepage, `/projects/arke-clothing`, `/projects/sera-discord-bot`.
-- Optional: add the Vercel URL to `personalInfo` / README “Live site” link.
-- Optional: [Custom domain](https://vercel.com/docs/domains) in the Vercel project settings.
-
-### Notes
-
-- **`public/images/`** must be committed so logos, banners, and product photos appear on the live site (files can be large; that is normal).
-- **`node_modules`** and **`dist`** are gitignored; Vercel builds `dist` on each deploy.
-- If a project route shows **404 on refresh**, confirm `vercel.json` is in the repo root.
 
 ---
 
