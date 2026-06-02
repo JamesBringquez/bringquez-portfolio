@@ -9,6 +9,16 @@ export const personalInfo = {
     github: "https://github.com/JamesBringquez",
     linkedin: "https://www.linkedin.com/in/james-matthew-bringquez/",
     vercel: "https://vercel.com/james-matthew-bringquezs-projects",
+    facebook: "https://www.facebook.com/JamtasticBringquez/",
+    instagram: "https://www.instagram.com/jamesbringquezz/",
+  },
+}
+
+/** ARKĒ brand social links */
+export const arkeBrand = {
+  social: {
+    facebook: "https://www.facebook.com/JamtasticBringquez/",
+    instagram: "https://www.instagram.com/jamesbringquezz/",
   },
 }
 
@@ -141,6 +151,8 @@ export interface Project {
   color: string
   /** Thumbnail shown on portfolio and project page — path under public/ */
   image: string
+  /** Banner fit in Featured Projects card (default: cover) */
+  imageFit?: "cover" | "contain"
   /** Deployed project URL — opens in a new browser tab when set */
   liveUrl?: string
   /** Standalone project page content (used when liveUrl is not set) */
@@ -187,7 +199,7 @@ export const projects: Project[] = [
     tags: ["Python", "discord.py", "FFmpeg"],
     category: "Personal Project",
     color: "from-white via-blue-100/80 to-pink-100/60",
-    image: "/images/project-sera.jpg",
+    image: "/images/project-sera-banner.png",
     page: {
       overview:
         "Sera is a custom Discord bot built with Python and discord.py. It combines voice music playback (yt-dlp + FFmpeg), a Japanese learning toolkit with translation and romaji, and server tools for voice management, announcements, and DM inbox relay — designed for real communities with slash commands, rich embeds, and staff permission controls.",

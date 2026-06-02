@@ -112,7 +112,7 @@ To add a project: extend the `projects` array in `src/data/portfolio.ts`. For a 
 - **Content:** Based on the Sera portfolio PDF — music, Japanese commands, server/moderation tools, tech stack
 - **Palette:** 60% white, 30% blue, 10% pink (accents only)
 - **Logo:** `public/images/sera-logo.png` in header and closing section
-- **Featured card image:** `public/images/project-sera.jpg` (Japanese cherry blossom + blue sky, Unsplash)
+- **Featured card image:** `public/images/project-sera-banner.png`
 
 ---
 
@@ -174,7 +174,7 @@ portfolio/
 │   └── images/
 │       ├── logo.png, profile.png, hero.jpg
 │       ├── project-arke-banner.png    # ARKĒ featured card
-│       ├── project-sera.jpg           # Sera featured card
+│       ├── project-sera-banner.png    # Sera featured card
 │       ├── sera-logo.png              # Sera demo site logo
 │       └── arke/                      # ARKĒ product photos
 │           ├── arke-essential-tee.png
@@ -216,7 +216,7 @@ Edit **`src/data/portfolio.ts`** for:
 | Profile | `public/images/profile.png` | Hero, About |
 | Hero | `public/images/hero.jpg` | Hero background |
 | ARKĒ banner | `public/images/project-arke-banner.png` | Featured Projects card |
-| Sera card | `public/images/project-sera.jpg` | Featured Projects card |
+| Sera card | `public/images/project-sera-banner.png` | Featured Projects card |
 | Sera logo | `public/images/sera-logo.png` | Sera demo site |
 | ARKĒ products | `public/images/arke/*.png` | ARKĒ store product grid & cart |
 

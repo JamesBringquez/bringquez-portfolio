@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import {
   ShoppingBag,
@@ -6,11 +6,18 @@ import {
   Funnel,
   Plus,
   Minus,
+  FacebookLogo,
+  InstagramLogo,
 } from "@phosphor-icons/react"
 import ArkePattern from "./ArkePattern"
 import ArkeProductImage, { type ArkeProductVisual } from "./ArkeProductImage"
+import { arkeBrand } from "../../data/portfolio"
 
 const categories = ["All", "Tops", "Bottoms", "Outerwear", "Accessories"] as const
+
+const ARKE_FAVICON = "/images/arke-favicon.png"
+const DEFAULT_FAVICON = "/images/logo.png"
+const DEFAULT_TITLE = "James Matthew P. Bringquez | Portfolio"
 
 type Product = {
   id: number
@@ -108,6 +115,29 @@ export default function ArkeStore() {
     })
   }
 
+  useEffect(() => {
+    const favicon =
+      document.querySelector<HTMLLinkElement>('link[rel="icon"]') ??
+      (() => {
+        const link = document.createElement("link")
+        link.rel = "icon"
+        document.head.appendChild(link)
+        return link
+      })()
+
+    const previousFavicon = favicon.href
+    const previousTitle = document.title
+
+    favicon.type = "image/png"
+    favicon.href = ARKE_FAVICON
+    document.title = "ARKĒ — Clothing Store"
+
+    return () => {
+      favicon.href = previousFavicon || DEFAULT_FAVICON
+      document.title = previousTitle || DEFAULT_TITLE
+    }
+  }, [])
+
   return (
     <div className="arke-store min-h-screen overflow-x-hidden bg-white font-sans text-[#0a0a0a]">
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-md">
@@ -124,11 +154,11 @@ export default function ArkeStore() {
           </a>
 
           <nav className="hidden gap-8 text-xs font-bold uppercase tracking-widest text-black/50 md:flex">
-            {["New Arrivals", "Collections", "About"].map((item) => (
-              <span key={item} className="cursor-pointer hover:text-black">
-                {item}
-              </span>
-            ))}
+            <span className="cursor-pointer hover:text-black">New Arrivals</span>
+            <span className="cursor-pointer hover:text-black">Collections</span>
+            <a href="#about" className="cursor-pointer hover:text-black">
+              About
+            </a>
           </nav>
 
           <div className="flex items-center gap-3">
@@ -353,6 +383,64 @@ export default function ArkeStore() {
         </div>
       </main>
 
+      <section id="about" className="border-t-2 border-black bg-white px-6 py-16">
+        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:items-center">
+          <div className="relative overflow-hidden border-2 border-black bg-[#fafafa] p-10">
+            <ArkePattern className="pointer-events-none absolute -right-10 -top-10 h-56 w-56 text-black opacity-20" />
+            <p className="text-[10px] font-black uppercase tracking-[0.45em] text-black/45">
+              About ARKĒ
+            </p>
+            <h2 className="mt-4 text-3xl font-black tracking-tight text-black md:text-4xl">
+              Elevated everyday streetwear.
+            </h2>
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-black/60">
+              ARKĒ is built for the in-between moments — commute to coffee, day to night, work to
+              weekend. We design clean silhouettes with premium hand-feel, thoughtful structure,
+              and small details that catch the light.
+            </p>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-black/60">
+              Our approach is simple: neutral first, fit always, and quality you notice every time
+              you reach for it. The result is a wardrobe that looks sharp without trying — pieces
+              you can repeat, layer, and make your own.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="border-2 border-black bg-black p-6 text-white">
+              <p className="text-xs font-black uppercase tracking-widest text-white/60">
+                Materials & feel
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-white/80">
+                Soft, durable fabrics chosen for comfort and shape retention — designed to look
+                crisp after long days and frequent wears.
+              </p>
+            </div>
+            <div className="border-2 border-black bg-white p-6">
+              <p className="text-xs font-black uppercase tracking-widest text-black/50">Fit & form</p>
+              <p className="mt-3 text-sm leading-relaxed text-black/60">
+                Modern proportions with room to move. Clean lines, balanced length, and layering
+                friendly cuts across the collection.
+              </p>
+            </div>
+            <div className="border-2 border-black bg-white p-6">
+              <p className="text-xs font-black uppercase tracking-widest text-black/50">
+                Designed to repeat
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-black/60">
+                Core essentials with a premium finish — built for rotation, not one-time wear.
+              </p>
+            </div>
+            <div className="border-2 border-black bg-black p-6 text-white">
+              <p className="text-xs font-black uppercase tracking-widest text-white/60">Customer care</p>
+              <p className="mt-3 text-sm leading-relaxed text-white/80">
+                Straightforward shipping and returns, plus sizing guidance designed to help you
+                find your daily fit with confidence.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="border-t-2 border-black bg-[#fafafa] px-6 py-16">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="arke-holo-text text-3xl font-black tracking-[0.2em]">ARKĒ</h2>
@@ -368,9 +456,29 @@ export default function ArkeStore() {
         <p className="arke-holo-text-light text-lg font-black tracking-[0.35em]">ARKĒ</p>
         <p className="mt-2 text-sm text-white/40">Modern Clothing · Est. 2026</p>
         <p className="mt-1 text-xs text-white/30">Customer care: hello@arke-clothing.com</p>
+        <div className="mt-6 flex items-center justify-center gap-3">
+          <a
+            href={arkeBrand.social.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="ARKĒ on Facebook"
+            className="flex h-11 w-11 items-center justify-center border-2 border-white/20 text-white/70 transition-colors hover:border-white hover:bg-white hover:text-black"
+          >
+            <FacebookLogo size={22} weight="fill" />
+          </a>
+          <a
+            href={arkeBrand.social.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="ARKĒ on Instagram"
+            className="flex h-11 w-11 items-center justify-center border-2 border-white/20 text-white/70 transition-colors hover:border-white hover:bg-white hover:text-black"
+          >
+            <InstagramLogo size={22} weight="fill" />
+          </a>
+        </div>
         <a
           href="/"
-          className="mt-4 inline-block text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white"
+          className="mt-6 inline-block text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white"
         >
           ← Back to Portfolio
         </a>
