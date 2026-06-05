@@ -2,11 +2,9 @@ import { motion } from "framer-motion"
 import {
   ArrowDown,
   ArrowRight,
-  GithubLogo,
-  LinkedinLogo,
 } from "@phosphor-icons/react"
 import { personalInfo, images } from "../data/portfolio"
-import VercelIcon from "./VercelIcon"
+import SocialLinks from "./SocialLinks"
 import PortfolioImage from "./PortfolioImage"
 import { fadeInUp, fadeInRight, staggerContainer, defaultTransition } from "../utils/animations"
 
@@ -101,44 +99,9 @@ export default function Hero() {
             <motion.div
               variants={fadeInUp}
               transition={{ ...defaultTransition, delay: 0.5 }}
-              className="mt-12 flex items-center gap-4"
+              className="mt-12"
             >
-              {(
-                [
-                  {
-                    type: "icon" as const,
-                    icon: GithubLogo,
-                    href: personalInfo.social.github,
-                    label: "GitHub",
-                  },
-                  {
-                    type: "icon" as const,
-                    icon: LinkedinLogo,
-                    href: personalInfo.social.linkedin,
-                    label: "LinkedIn",
-                  },
-                  {
-                    type: "vercel" as const,
-                    href: personalInfo.social.vercel,
-                    label: "Vercel",
-                  },
-                ] as const
-              ).map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={item.label}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 text-ink-muted transition-all duration-300 hover:border-accent hover:bg-accent hover:text-white hover:shadow-lg hover:shadow-accent/25"
-                >
-                  {item.type === "vercel" ? (
-                    <VercelIcon size={18} />
-                  ) : (
-                    <item.icon size={20} weight="bold" />
-                  )}
-                </a>
-              ))}
+              <SocialLinks variant="hero" />
             </motion.div>
           </motion.div>
 

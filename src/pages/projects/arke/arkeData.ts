@@ -11,7 +11,10 @@ export type ArkeProduct = {
   category: string
   tag: string | null
   visual: ArkeProductVisual
+  /** Flat product shot */
   image?: string
+  /** Model lookbook shot — shown on product cards */
+  modelImage?: string
 }
 
 export const products: ArkeProduct[] = [
@@ -23,6 +26,7 @@ export const products: ArkeProduct[] = [
     tag: "Core",
     visual: "tee",
     image: "/images/arke/arke-essential-tee.png",
+    modelImage: "/images/arke/models/arke-model-essential-tee.png",
   },
   {
     id: 2,
@@ -32,6 +36,7 @@ export const products: ArkeProduct[] = [
     tag: "Flagship",
     visual: "hoodie",
     image: "/images/arke/arke-holo-hoodie.png",
+    modelImage: "/images/arke/models/arke-model-holo-hoodie.png",
   },
   {
     id: 3,
@@ -41,6 +46,7 @@ export const products: ArkeProduct[] = [
     tag: "Bestseller",
     visual: "cargo",
     image: "/images/arke/arke-structured-cargo.png",
+    modelImage: "/images/arke/models/arke-model-structured-cargo.png",
   },
   {
     id: 4,
@@ -50,6 +56,7 @@ export const products: ArkeProduct[] = [
     tag: "New",
     visual: "windbreaker",
     image: "/images/arke/arke-pearl-windbreaker.png",
+    modelImage: "/images/arke/models/arke-model-pearl-windbreaker.png",
   },
   {
     id: 5,
@@ -59,6 +66,7 @@ export const products: ArkeProduct[] = [
     tag: null,
     visual: "cap",
     image: "/images/arke/arke-monochrome-cap.png",
+    modelImage: "/images/arke/models/arke-model-monochrome-cap.png",
   },
   {
     id: 6,
@@ -68,8 +76,17 @@ export const products: ArkeProduct[] = [
     tag: null,
     visual: "longsleeve",
     image: "/images/arke/arke-layered-longsleeve.png",
+    modelImage: "/images/arke/models/arke-model-layered-longsleeve.png",
   },
 ]
+
+export const lookbookHero = "/images/arke/models/arke-model-lookbook-hero.png"
+
+export const lookbookFeatured = [
+  { id: 2, name: "Holo Signature Hoodie", modelImage: "/images/arke/models/arke-model-holo-hoodie.png" },
+  { id: 4, name: "Pearl Windbreaker", modelImage: "/images/arke/models/arke-model-pearl-windbreaker.png" },
+  { id: 1, name: "Essential Tee", modelImage: "/images/arke/models/arke-model-essential-tee.png" },
+] as const
 
 export type ArkeReview = {
   id: number

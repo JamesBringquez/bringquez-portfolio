@@ -1,7 +1,8 @@
 import { motion } from "framer-motion"
-import { Heart, ArrowUp, FacebookLogo, InstagramLogo } from "@phosphor-icons/react"
+import { Heart, ArrowUp } from "@phosphor-icons/react"
 import { personalInfo, navLinks } from "../data/portfolio"
 import LogoMark from "./LogoMark"
+import SocialLinks from "./SocialLinks"
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -31,26 +32,7 @@ export default function Footer() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <motion.a
-              href={personalInfo.social.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ y: -4 }}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all duration-300 hover:border-accent hover:bg-accent hover:text-white"
-              aria-label="Facebook"
-            >
-              <FacebookLogo size={22} weight="fill" />
-            </motion.a>
-            <motion.a
-              href={personalInfo.social.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ y: -4 }}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all duration-300 hover:border-accent hover:bg-accent hover:text-white"
-              aria-label="Instagram"
-            >
-              <InstagramLogo size={22} weight="fill" />
-            </motion.a>
+            <SocialLinks variant="footer" includePersonal />
             <motion.a
               href="#"
               whileHover={{ y: -4 }}

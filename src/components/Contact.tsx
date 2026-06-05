@@ -7,6 +7,7 @@ import {
   CheckCircle,
 } from "@phosphor-icons/react"
 import { personalInfo } from "../data/portfolio"
+import SocialLinks from "./SocialLinks"
 import {
   fadeInUp,
   fadeInLeft,
@@ -83,6 +84,13 @@ export default function Contact() {
                     <p className="font-semibold text-ink">{personalInfo.location}</p>
                   </div>
                 </div>
+              </div>
+
+              <div>
+                <h4 className="text-sm font-semibold uppercase tracking-widest text-ink-subtle">
+                  Find me online
+                </h4>
+                <SocialLinks variant="contact" className="mt-4" />
               </div>
             </motion.div>
 

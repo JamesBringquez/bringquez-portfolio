@@ -160,6 +160,7 @@ export default function ArkeStoreLayout() {
                             name={p.name}
                             visual={p.visual}
                             image={p.image}
+                            modelImage={p.modelImage}
                             className="!h-full !min-h-0"
                           />
                         </div>
@@ -213,6 +214,10 @@ export default function ArkeStoreLayout() {
         <p className="arke-holo-text-light text-lg font-black tracking-[0.35em]">ARKĒ</p>
         <p className="mt-2 text-sm text-white/40">Modern Clothing · Est. 2026</p>
         <p className="mt-1 text-xs text-white/30">Customer care: hello@arke-clothing.com</p>
+        <p className="mx-auto mt-4 max-w-md text-[10px] leading-relaxed text-white/25">
+          Demo storefront — some product and model images are placeholders for portfolio
+          presentation only.
+        </p>
         <a
           href="/"
           className="mt-6 inline-block text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white"

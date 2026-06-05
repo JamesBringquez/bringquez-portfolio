@@ -172,7 +172,7 @@ export const projects: Project[] = [
     slug: "arke-clothing",
     title: "ARKĒ — Clothing Store",
     description:
-      "A planned personal clothing brand — modern streetwear with pearl white, black, and signature holographic accents.",
+      "My planned clothing label — born from late-night sketches and a simple idea: everyday streetwear that feels intentional. I designed the ARKĒ identity (pearl, black, holo accents) and built the full storefront demo myself — collections, cart, lookbook, and all.",
     tags: ["React", "TypeScript", "Tailwind"],
     category: "Personal Project",
     color: "from-neutral-100 via-white to-neutral-200",
@@ -195,7 +195,7 @@ export const projects: Project[] = [
     slug: "sera-discord-bot",
     title: "Sera — Discord Bot",
     description:
-      "A Python Discord bot combining voice music, Japanese learning tools, and server admin utilities — built for real community use.",
+      "A Discord bot I built for servers I actually hang out in — voice music when friends join a channel, Japanese practice commands I use myself, and staff tools that make running a community less chaotic. Python, discord.py, and a lot of trial and error.",
     tags: ["Python", "discord.py", "FFmpeg"],
     category: "Personal Project",
     color: "from-white via-blue-100/80 to-pink-100/60",

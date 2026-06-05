@@ -69,9 +69,11 @@ export default function About() {
               <p className="text-lg leading-relaxed text-ink-muted">
                 With{" "}
                 <span className="font-medium text-ink">{experience.fullLabel}</span> of professional
-                experience in web development and a strong foundation in{" "}
-                <span className="font-medium text-ink">React, TypeScript, and Tailwind CSS</span>,
-                I build modern web applications that are as performant as they are beautiful.
+                experience in web development, I have a strong foundation in{" "}
+                <span className="font-medium text-ink">C#, HTML, CSS, JavaScript, and Bootstrap</span>.
+                I&apos;m currently learning{" "}
+                <span className="font-medium text-accent">React, TypeScript, and Tailwind CSS</span>{" "}
+                and building confidence with them as I grow into modern front-end development.
               </p>
               <p className="text-lg leading-relaxed text-ink-muted">
                 Currently, I&apos;m expanding my horizons into{" "}

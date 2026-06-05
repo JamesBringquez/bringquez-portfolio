@@ -80,8 +80,12 @@ export default function ArkeCollections() {
                   name={product.name}
                   visual={product.visual}
                   image={product.image}
+                  modelImage={product.modelImage}
                   className="relative z-0"
                 />
+                <span className="absolute right-0 top-0 z-10 bg-white/90 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider text-black/50 opacity-0 transition-opacity group-hover:opacity-100">
+                  Product view
+                </span>
                 {product.tag && (
                   <span className="absolute left-0 top-0 z-10 bg-black px-3 py-1.5 text-[10px] font-black uppercase tracking-wider text-white">
                     {product.tag}

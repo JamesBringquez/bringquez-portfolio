@@ -11,8 +11,10 @@ export type ArkeProductVisual =
 interface ArkeProductImageProps {
   name: string
   visual: ArkeProductVisual
-  /** When set, shows a real photo instead of the template */
+  /** Flat product shot */
   image?: string
+  /** Model lookbook shot — primary on cards when set */
+  modelImage?: string
   className?: string
 }
 
@@ -48,51 +50,35 @@ function ProductSvg({ visual }: { visual: ArkeProductVisual }) {
           />
           <path d="M72 56 Q55 62 48 78" fill="none" stroke={stroke} strokeWidth="2" />
           <path d="M128 56 Q145 62 152 78" fill="none" stroke={stroke} strokeWidth="2" />
-          <path
-            d="M88 58 Q100 72 112 58"
-            fill="none"
-            stroke={holo}
-            strokeWidth="3"
-            strokeLinecap="round"
-          />
-          <ellipse cx="100" cy="44" rx="24" ry="9" fill="none" stroke={stroke} strokeWidth="2" />
+          <rect x="88" y="62" width="24" height="18" rx="2" fill={holo} opacity="0.85" />
         </>
       )
     case "cargo":
       return (
         <>
           <path
-            d="M78 42 L122 42 L128 98 L72 98 Z"
+            d="M78 48 L122 48 L125 98 L75 98 Z"
             fill={fill}
             stroke={stroke}
             strokeWidth="2"
           />
-          <path d="M78 55 L122 55" stroke={stroke} strokeWidth="1.5" />
-          <path d="M78 68 L122 68" stroke={stroke} strokeWidth="1.5" />
-          <rect x="82" y="72" width="14" height="18" fill="none" stroke={stroke} strokeWidth="1.5" />
-          <rect x="104" y="72" width="14" height="18" fill="none" stroke={stroke} strokeWidth="1.5" />
-          <path d="M100 42 L100 98" stroke={stroke} strokeWidth="1" opacity="0.15" />
+          <rect x="82" y="58" width="14" height="12" fill="none" stroke={stroke} strokeWidth="1.5" />
+          <rect x="104" y="58" width="14" height="12" fill="none" stroke={stroke} strokeWidth="1.5" />
+          <path d="M78 48 L75 42 L125 42 L122 48" fill="none" stroke={stroke} strokeWidth="2" />
         </>
       )
     case "windbreaker":
       return (
         <>
           <path
-            d="M90 48 L70 54 L64 96 L136 96 L130 54 L110 48 L100 38 Z"
+            d="M90 42 L110 42 L130 55 L135 98 L65 98 L70 55 Z"
             fill={fill}
             stroke={stroke}
             strokeWidth="2"
           />
-          <path
-            d="M90 48 L100 38 L110 48"
-            fill="none"
-            stroke={holo}
-            strokeWidth="2.5"
-            strokeLinejoin="round"
-          />
-          <path d="M64 96 L48 102" stroke={stroke} strokeWidth="2" />
-          <path d="M136 96 L152 102" stroke={stroke} strokeWidth="2" />
-          <path d="M100 48 L100 96" stroke={stroke} strokeWidth="1" opacity="0.12" />
+          <path d="M100 42 L100 98" stroke={stroke} strokeWidth="1" opacity="0.15" />
+          <path d="M90 55 L70 55" stroke={stroke} strokeWidth="2" />
+          <path d="M110 55 L130 55" stroke={stroke} strokeWidth="2" />
         </>
       )
     case "cap":
@@ -100,51 +86,72 @@ function ProductSvg({ visual }: { visual: ArkeProductVisual }) {
         <>
           <ellipse cx="100" cy="72" rx="38" ry="10" fill={fill} stroke={stroke} strokeWidth="2" />
           <path
-            d="M62 72 Q100 48 138 72"
+            d="M72 72 Q100 38 128 72"
             fill={fill}
             stroke={stroke}
             strokeWidth="2"
           />
-          <path d="M138 72 L155 76" stroke={stroke} strokeWidth="2.5" strokeLinecap="round" />
-          <path
-            d="M78 58 Q100 42 122 58"
-            fill="none"
-            stroke={holo}
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
+          <path d="M62 74 L138 74" stroke={stroke} strokeWidth="2.5" strokeLinecap="round" />
         </>
       )
     case "longsleeve":
       return (
         <>
           <path
-            d="M95 50 L75 56 L68 98 L132 98 L125 56 L105 50 L100 42 Z"
+            d="M95 52 L75 58 L68 98 L132 98 L125 58 L105 52 L100 44 Z"
             fill={fill}
             stroke={stroke}
             strokeWidth="2"
           />
-          <path d="M75 56 L58 72" fill="none" stroke={stroke} strokeWidth="2" />
-          <path d="M125 56 L142 72" fill="none" stroke={stroke} strokeWidth="2" />
-          <path d="M100 42 L100 98" stroke={stroke} strokeWidth="1.5" opacity="0.15" />
+          <path d="M68 70 L52 85" fill="none" stroke={stroke} strokeWidth="2" />
+          <path d="M132 70 L148 85" fill="none" stroke={stroke} strokeWidth="2" />
           <ellipse cx="100" cy="46" rx="20" ry="7" fill="none" stroke={stroke} strokeWidth="2" />
         </>
       )
   }
 }
 
+function ProductPhoto({ src, alt, className }: { src: string; alt: string; className: string }) {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={`h-full w-full object-cover object-top ${className}`}
+    />
+  )
+}
+
 export default function ArkeProductImage({
   name,
   visual,
   image,
+  modelImage,
   className = "",
 }: ArkeProductImageProps) {
-  if (image) {
+  if (modelImage && image) {
     return (
-      <img
-        src={image}
-        alt={name}
-        className={`h-full w-full object-cover object-center ${className}`}
+      <div className={`relative h-full w-full ${className}`}>
+        <ProductPhoto
+          src={modelImage}
+          alt={`${name} — model lookbook`}
+          className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-0"
+        />
+        <ProductPhoto
+          src={image}
+          alt={`${name} — product`}
+          className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        />
+      </div>
+    )
+  }
+
+  const photo = modelImage ?? image
+  if (photo) {
+    return (
+      <ProductPhoto
+        src={photo}
+        alt={modelImage ? `${name} — model lookbook` : name}
+        className={className}
       />
     )
   }

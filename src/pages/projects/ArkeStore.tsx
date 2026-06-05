@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import ArkePattern from "./ArkePattern"
+import ArkeLookbook from "./arke/ArkeLookbook"
 import ArkeReviews from "./arke/ArkeReviews"
 import { ARKE_ABOUT, ARKE_COLLECTIONS } from "./arke/arkeData"
 
@@ -76,6 +77,8 @@ export default function ArkeStore() {
           </div>
         </div>
       </section>
+
+      <ArkeLookbook />
 
       <ArkeReviews />
     </>
