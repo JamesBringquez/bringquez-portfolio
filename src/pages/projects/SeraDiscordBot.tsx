@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { useState } from "react"
 import { motion } from "framer-motion"
 import {
@@ -11,14 +12,13 @@ import {
   Lightning,
   CaretRight,
 } from "@phosphor-icons/react"
+import { SERA_LOGO, SERA_PRIVACY, SERA_TERMS } from "./sera/seraData"
 
 const featureTabs = [
   { id: "music", label: "Music & Voice", icon: MusicNotes },
   { id: "japanese", label: "Japanese Toolkit", icon: Translate },
   { id: "server", label: "Server Tools", icon: Shield },
 ] as const
-
-const SERA_LOGO = "/images/sera-logo.png"
 
 const featureContent = {
   music: {
@@ -118,30 +118,7 @@ export default function SeraDiscordBot() {
   const content = featureContent[activeTab]
 
   return (
-    <div className="sera-page min-h-screen overflow-x-hidden bg-white font-sans text-slate-900">
-      {/* White header with blue accent line */}
-      <header className="border-b border-slate-200 bg-white">
-        <div className="h-1 w-full bg-[#2563eb]" />
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:px-6">
-          <a href="/projects/sera-discord-bot" className="flex min-w-0 items-center gap-3">
-            <img
-              src={SERA_LOGO}
-              alt="Sera Discord Bot"
-              className="h-12 w-12 rounded-full object-cover ring-2 ring-[#ec4899]/30"
-            />
-            <div>
-              <span className="text-xl font-black tracking-tight text-slate-900">Sera</span>
-              <span className="block text-[10px] font-semibold uppercase tracking-widest text-slate-500">
-                Discord Bot
-              </span>
-            </div>
-          </a>
-          <span className="hidden rounded-full bg-[#ec4899] px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white sm:inline">
-            Personal Project
-          </span>
-        </div>
-      </header>
-
+    <>
       {/* 60% white — hero */}
       <section className="relative overflow-hidden bg-white px-6 py-20 md:py-28">
         <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-[#ec4899]/10 blur-3xl" />
@@ -333,21 +310,22 @@ export default function SeraDiscordBot() {
           <span className="mt-6 inline-block rounded-full bg-[#fce7f3] px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#db2777]">
             Personal project
           </span>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              to={SERA_TERMS}
+              className="text-sm font-bold text-[#2563eb] hover:text-[#1d4ed8]"
+            >
+              Terms of Service
+            </Link>
+            <Link
+              to={SERA_PRIVACY}
+              className="text-sm font-bold text-[#2563eb] hover:text-[#1d4ed8]"
+            >
+              Privacy Policy
+            </Link>
+          </div>
         </div>
       </section>
-
-      <footer className="border-t border-[#1d4ed8] bg-[#2563eb] px-6 py-10 text-center text-white">
-        <p className="text-lg font-black">Sera Discord Bot</p>
-        <p className="mt-2 text-sm text-white/70">
-          Personal Project by James Matthew P. Bringquez
-        </p>
-        <a
-          href="/"
-          className="mt-4 inline-block rounded-full bg-white px-6 py-2.5 text-sm font-bold text-[#1d4ed8] transition-opacity hover:opacity-90"
-        >
-          ← Back to Portfolio
-        </a>
-      </footer>
-    </div>
+    </>
   )
 }
