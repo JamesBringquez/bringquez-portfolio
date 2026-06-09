@@ -13,8 +13,8 @@ export default function ArkeLookbook() {
               Styled for the street
             </h2>
             <p className="mt-3 max-w-xl text-base leading-relaxed text-black/55">
-              ARKĒ pieces shot on model — clean silhouettes, everyday rotation, signature holo
-              details in motion.
+              Black and white foundations with the ARKĒ mark on every piece — holo reserved for
+              trim, zips, and the details that catch light in motion.
             </p>
           </div>
           <Link

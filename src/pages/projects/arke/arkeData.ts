@@ -4,6 +4,8 @@ export const categories = ["All", "Tops", "Bottoms", "Outerwear", "Accessories"]
 
 export type ArkeCategory = (typeof categories)[number]
 
+export type ArkeLogoVariant = "dark" | "light"
+
 export type ArkeProduct = {
   id: number
   name: string
@@ -11,10 +13,11 @@ export type ArkeProduct = {
   category: string
   tag: string | null
   visual: ArkeProductVisual
-  /** Flat product shot */
-  image?: string
-  /** Model lookbook shot — shown on product cards */
-  modelImage?: string
+  /** Which ARKĒ logo treatment is used — dark stealth mark is black-garment only */
+  logoVariant: ArkeLogoVariant
+  designNote: string
+  image: string
+  modelImage: string
 }
 
 export const products: ArkeProduct[] = [
@@ -25,18 +28,22 @@ export const products: ArkeProduct[] = [
     category: "Tops",
     tag: "Core",
     visual: "tee",
+    logoVariant: "dark",
+    designNote: "Black base · stealth logo chest · pixel trace · holo side accent",
     image: "/images/arke/arke-essential-tee.png",
     modelImage: "/images/arke/models/arke-model-essential-tee.png",
   },
   {
     id: 2,
-    name: "Holo Signature Hoodie",
+    name: "Archive Hoodie",
     price: 128,
     category: "Outerwear",
     tag: "Flagship",
     visual: "hoodie",
-    image: "/images/arke/arke-holo-hoodie.png",
-    modelImage: "/images/arke/models/arke-model-holo-hoodie.png",
+    logoVariant: "dark",
+    designNote: "Black base · stealth logo chest · holo pocket trim",
+    image: "/images/arke/arke-archive-hoodie.png",
+    modelImage: "/images/arke/models/arke-model-archive-hoodie.png",
   },
   {
     id: 3,
@@ -45,6 +52,8 @@ export const products: ArkeProduct[] = [
     category: "Bottoms",
     tag: "Bestseller",
     visual: "cargo",
+    logoVariant: "light",
+    designNote: "Black cargo · light logo on white thigh panel · holo belt loop",
     image: "/images/arke/arke-structured-cargo.png",
     modelImage: "/images/arke/models/arke-model-structured-cargo.png",
   },
@@ -55,6 +64,8 @@ export const products: ArkeProduct[] = [
     category: "Outerwear",
     tag: "New",
     visual: "windbreaker",
+    logoVariant: "light",
+    designNote: "White shell · light logo chest · black shoulders · holo zip line",
     image: "/images/arke/arke-pearl-windbreaker.png",
     modelImage: "/images/arke/models/arke-model-pearl-windbreaker.png",
   },
@@ -65,6 +76,8 @@ export const products: ArkeProduct[] = [
     category: "Accessories",
     tag: null,
     visual: "cap",
+    logoVariant: "dark",
+    designNote: "Black crown · stealth logo front · white brim · holo underbrim",
     image: "/images/arke/arke-monochrome-cap.png",
     modelImage: "/images/arke/models/arke-model-monochrome-cap.png",
   },
@@ -75,6 +88,8 @@ export const products: ArkeProduct[] = [
     category: "Tops",
     tag: null,
     visual: "longsleeve",
+    logoVariant: "dark",
+    designNote: "Black base · stealth logo chest · holo collar line",
     image: "/images/arke/arke-layered-longsleeve.png",
     modelImage: "/images/arke/models/arke-model-layered-longsleeve.png",
   },
@@ -83,7 +98,7 @@ export const products: ArkeProduct[] = [
 export const lookbookHero = "/images/arke/models/arke-model-lookbook-hero.png"
 
 export const lookbookFeatured = [
-  { id: 2, name: "Holo Signature Hoodie", modelImage: "/images/arke/models/arke-model-holo-hoodie.png" },
+  { id: 2, name: "Archive Hoodie", modelImage: "/images/arke/models/arke-model-archive-hoodie.png" },
   { id: 4, name: "Pearl Windbreaker", modelImage: "/images/arke/models/arke-model-pearl-windbreaker.png" },
   { id: 1, name: "Essential Tee", modelImage: "/images/arke/models/arke-model-essential-tee.png" },
 ] as const
@@ -102,10 +117,10 @@ export const reviews: ArkeReview[] = [
     id: 1,
     name: "Mika R.",
     location: "Manila",
-    product: "Holo Signature Hoodie",
+    product: "Archive Hoodie",
     rating: 5,
     quote:
-      "The holo finish catches light in the best way — premium weight, clean fit, and it still looks sharp after a full day out.",
+      "The stealth logo hits clean on the black body — premium weight, sharp fit, and the holo trim is subtle enough for daily wear.",
   },
   {
     id: 2,
@@ -114,7 +129,7 @@ export const reviews: ArkeReview[] = [
     product: "Essential Tee",
     rating: 5,
     quote:
-      "Simple on first look, but the fabric and cut are clearly above fast fashion. Already ordered a second color.",
+      "Black tee with just enough detail — the pixel trace and chest logo feel intentional, not loud. Already ordered a second one.",
   },
   {
     id: 3,
@@ -123,7 +138,7 @@ export const reviews: ArkeReview[] = [
     product: "Pearl Windbreaker",
     rating: 5,
     quote:
-      "Light enough for tropical evenings, structured enough to feel elevated. The pearl tone goes with everything I own.",
+      "Light enough for tropical evenings, structured enough to feel elevated. The shoulder panels and logo placement are chef's kiss.",
   },
   {
     id: 4,
@@ -132,7 +147,7 @@ export const reviews: ArkeReview[] = [
     product: "Structured Cargo",
     rating: 5,
     quote:
-      "Best cargos I've tried in this price range — sharp silhouette, deep pockets, and the fabric holds its shape all day.",
+      "Best cargos I've tried in this price range — sharp silhouette, deep pockets, and the thigh panel logo is a nice touch.",
   },
   {
     id: 5,
@@ -141,7 +156,7 @@ export const reviews: ArkeReview[] = [
     product: "Layered Long Sleeve",
     rating: 5,
     quote:
-      "Layering piece done right. Soft hand-feel, not too boxy, and the neckline sits perfectly under a jacket.",
+      "Layering piece done right. Soft hand-feel, not too boxy, and the stealth chest logo ties the whole line together.",
   },
   {
     id: 6,
@@ -150,7 +165,7 @@ export const reviews: ArkeReview[] = [
     product: "Monochrome Cap",
     rating: 5,
     quote:
-      "Minimal cap with a solid structure — sits clean, no awkward bulge, and the monochrome finish matches the whole line.",
+      "Minimal cap with a solid structure — logo sits clean up front, and the holo underbrim catches light when you tilt your head.",
   },
 ]
 

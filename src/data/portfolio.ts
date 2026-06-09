@@ -213,6 +213,30 @@ export const projects: Project[] = [
       ],
     },
   },
+  {
+    id: 3,
+    slug: "rally-point-pickleball",
+    title: "Rally Point — Pickleball Club",
+    description:
+      "A draft concept for a local pickleball community in Filinvest, Alabang — a place where players book courts, join open play, and find their regular doubles crew. Built as a full website demo with events, facilities, and membership flow.",
+    tags: ["React", "TypeScript", "Tailwind"],
+    category: "Personal Project · Draft",
+    color: "from-emerald-50 via-white to-orange-50",
+    image: "/images/project-rally-point-banner.png",
+    page: {
+      overview:
+        "Rally Point Pickleball Club is a draft community website for players gathering at a sports hub in Filinvest, Alabang, Muntinlupa. The demo includes a hero landing page, court directory with live-style status, events calendar, and a membership signup flow — designed to feel welcoming for beginners and regulars alike.",
+      role: "Web Developer & Designer",
+      timeline: "2026 · Draft Concept",
+      features: [
+        "Community landing page with location-focused hero",
+        "Court directory with outdoor & covered facilities",
+        "Events & open play calendar with RSVP placeholders",
+        "Join flow with skill-level signup form",
+        "Fully responsive layout with mobile hamburger nav",
+      ],
+    },
+  },
 ]
 
 /** Returns the URL that opens in a new browser tab for a project */

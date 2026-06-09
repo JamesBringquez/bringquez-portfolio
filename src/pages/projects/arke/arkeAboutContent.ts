@@ -53,9 +53,9 @@ export const arkeHistory = {
         "Modern proportions with room to move. Pieces are cut for layering, commuting, and long days — sharp without feeling stiff.",
     },
     {
-      title: "Details that catch light",
+      title: "Two marks, one system",
       description:
-        "Holographic accents are intentional and sparing. They reward movement and angle — a private signal for people who notice craft.",
+        "The stealth ARKĒ mark lives on black fabric only — tonal gray letters that reveal holo accents in motion. On white and pearl pieces, the light mark takes over: crisp black letterforms with the same holographic A-stem and E-bar.",
     },
     {
       title: "Designed to repeat",

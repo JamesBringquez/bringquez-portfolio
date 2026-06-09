@@ -28,9 +28,9 @@ export default function ArkeStore() {
               streetwear.
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-black/55">
-              ARKĒ is a modern clothing label — clean silhouettes, premium fabrics, and a
-              signature holographic finish on select pieces. Designed for daily wear, built to
-              stand out.
+              ARKĒ is a modern clothing label — clean silhouettes, premium fabrics, and the
+              signature mark on every piece. Black and white first; holo reserved for the details
+              that catch light.
             </p>
             <Link
               to={`${ARKE_COLLECTIONS}?tag=New`}

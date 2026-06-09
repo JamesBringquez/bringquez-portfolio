@@ -75,7 +75,7 @@ export default function ArkeCollections() {
               transition={{ delay: i * 0.05 }}
               className="group overflow-hidden border-2 border-black bg-white"
             >
-              <div className="arke-holo-surface relative aspect-[4/5] overflow-hidden">
+              <div className="relative aspect-[4/5] overflow-hidden bg-[#ececec]">
                 <ArkeProductImage
                   name={product.name}
                   visual={product.visual}
