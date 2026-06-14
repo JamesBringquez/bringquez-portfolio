@@ -3,6 +3,8 @@
 import type { ArkeProductVisual } from "../ArkeProductImage"
 
 export const ARKE_LOGO = "/images/arke/brand/arke-logo.png"
+export const ARKE_LOGO_STEALTH = "/images/arke/brand/arke-logo-dark.png"
+export const ARKE_LOGO_LIGHT = "/images/arke/brand/arke-logo-light.png"
 
 export type ArkeMockupView = "primary" | "alternate"
 
@@ -41,16 +43,18 @@ function Logo({
   w,
   h,
   opacity = 1,
+  variant = "light",
 }: {
   x: number
   y: number
   w: number
   h: number
   opacity?: number
+  variant?: "light" | "stealth"
 }) {
   return (
     <image
-      href={ARKE_LOGO}
+      href={variant === "stealth" ? ARKE_LOGO_STEALTH : ARKE_LOGO_LIGHT}
       x={x}
       y={y}
       width={w}
@@ -159,7 +163,7 @@ function TeeMockup({ view }: { view: ArkeMockupView }) {
           strokeWidth="1.5"
         />
         <rect x="68" y="72" width="64" height="36" rx="1" fill={MUTED} />
-        <Logo x={74} y={78} w={52} h={24} />
+        <Logo x={74} y={78} w={52} h={24} variant="stealth" />
         <PixelTrail x={68} y={88} count={5} direction="left" />
         <HoloAccentLine x1={142} y1={70} x2={142} y2={106} width={2} />
         <text x="100" y="130" textAnchor="middle" fill={WHITE} opacity="0.35" fontSize="6" fontWeight="700" letterSpacing="2">
@@ -178,7 +182,7 @@ function TeeMockup({ view }: { view: ArkeMockupView }) {
         stroke={INK}
         strokeWidth="1.5"
       />
-      <Logo x={62} y={68} w={36} h={16} />
+      <Logo x={62} y={68} w={36} h={16} variant="stealth" />
       <PixelTrail x={58} y={74} count={4} direction="left" />
       <rect x="134" y="66" width="3" height="38" fill="url(#arke-holo-accent)" opacity="0.55" />
       <line x1="100" y1="48" x2="100" y2="108" stroke={WHITE} strokeWidth="0.5" opacity="0.08" />
@@ -200,7 +204,7 @@ function HoodieMockup({ view }: { view: ArkeMockupView }) {
         <path d="M50 60 Q32 68 24 88" fill="none" stroke={INK} strokeWidth="2" />
         <path d="M150 60 Q168 68 176 88" fill="none" stroke={INK} strokeWidth="2" />
         <rect x="72" y="78" width="56" height="28" rx="1" fill={INK} />
-        <Logo x={78} y={84} w={44} h={16} />
+        <Logo x={78} y={84} w={44} h={16} variant="stealth" />
         <HoloAccentLine x1={100} y1={112} x2={100} y2={118} width={3} />
         <rect x="42" y="108" width="116" height="6" fill={INK} />
       </>
@@ -219,7 +223,7 @@ function HoodieMockup({ view }: { view: ArkeMockupView }) {
       <path d="M50 60 Q32 68 24 88" fill="none" stroke={INK} strokeWidth="2" />
       <path d="M150 60 Q168 68 176 88" fill="none" stroke={INK} strokeWidth="2" />
       <rect x="68" y="68" width="64" height="40" rx="1" fill={INK} />
-      <Logo x={74} y={76} w={52} h={24} />
+      <Logo x={74} y={76} w={52} h={24} variant="stealth" />
       <rect x="78" y="112" width="44" height="32" rx="2" fill={MUTED} stroke={INK} strokeWidth="1" />
       <HoloAccentLine x1={78} y1={144} x2={122} y2={144} width={1.5} />
       <rect x="42" y="108" width="116" height="6" fill={INK} />
@@ -236,8 +240,8 @@ function CargoMockup({ view }: { view: ArkeMockupView }) {
         <path d="M62 52 L58 44 L142 44 L138 52" fill="none" stroke={INK} strokeWidth="2" />
         <rect x="66" y="62" width="28" height="22" fill="none" stroke={WHITE} strokeWidth="1.5" opacity="0.7" />
         <rect x="106" y="62" width="28" height="22" fill="none" stroke={WHITE} strokeWidth="1.5" opacity="0.7" />
-        <rect x="108" y="78" width="22" height="14" fill={WHITE} opacity="0.12" />
-        <Logo x={110} y={80} w={18} h={10} opacity={0.9} />
+        <rect x="108" y="78" width="22" height="14" fill={MUTED} opacity="0.95" />
+        <Logo x={110} y={80} w={18} h={10} opacity={0.9} variant="stealth" />
         <circle cx="132" cy="48" r="3" fill="url(#arke-holo-accent)" opacity="0.7" />
       </>
     )
@@ -248,8 +252,8 @@ function CargoMockup({ view }: { view: ArkeMockupView }) {
       <rect x="0" y="0" width="200" height="280" fill="#ececec" />
       <path d="M62 52 L138 52 L142 118 L58 118 Z" fill={INK} stroke={INK} strokeWidth="2" />
       <path d="M62 52 L58 44 L142 44 L138 52" fill="none" stroke={INK} strokeWidth="2" />
-      <path d="M66 70 L94 70 L96 100 L64 100 Z" fill={WHITE} opacity="0.95" />
-      <Logo x={68} y={78} w={26} h={14} />
+      <path d="M66 70 L94 70 L96 100 L64 100 Z" fill={MUTED} opacity="0.95" />
+      <Logo x={68} y={78} w={26} h={14} variant="stealth" />
       <PixelTrail x={66} y={84} count={3} direction="left" />
       <rect x="106" y="62" width="28" height="22" fill="none" stroke={WHITE} strokeWidth="1.5" opacity="0.5" />
       <rect x="66" y="62" width="28" height="22" fill="none" stroke={WHITE} strokeWidth="1.5" opacity="0.5" />
@@ -267,7 +271,7 @@ function WindbreakerMockup({ view }: { view: ArkeMockupView }) {
         <path d="M72 46 L52 62 L46 118" fill={INK} opacity="0.9" />
         <path d="M128 46 L148 62 L154 118" fill={INK} opacity="0.9" />
         <rect x="72" y="72" width="56" height="32" rx="1" fill={INK} />
-        <Logo x={78} y={80} w={44} h={16} />
+        <Logo x={78} y={80} w={44} h={16} variant="stealth" />
         <line x1="100" y1="46" x2="100" y2="118" stroke={INK} strokeWidth="0.5" opacity="0.1" />
       </>
     )
@@ -279,7 +283,7 @@ function WindbreakerMockup({ view }: { view: ArkeMockupView }) {
       <path d="M72 46 L128 46 L148 62 L154 118 L46 118 L52 62 Z" fill={WHITE} stroke={INK} strokeWidth="2" />
       <path d="M72 46 L52 62 L72 78 Z" fill={INK} />
       <path d="M128 46 L148 62 L128 78 Z" fill={INK} />
-      <Logo x={58} y={66} w={28} h={12} />
+      <Logo x={58} y={66} w={28} h={12} variant="light" />
       <line x1="100" y1="46" x2="100" y2="118" stroke={INK} strokeWidth="1" opacity="0.12" />
       <HoloAccentLine x1={100} y1={50} x2={100} y2={112} width={1.2} />
       <PixelTrail x={148} y={70} count={4} direction="right" />
@@ -307,7 +311,7 @@ function CapMockup({ view }: { view: ArkeMockupView }) {
       <ellipse cx="100" cy="88" rx="44" ry="12" fill={INK} stroke={INK} strokeWidth="2" />
       <path d="M56 88 Q100 48 144 88" fill={INK} stroke={INK} strokeWidth="2" />
       <path d="M46 90 L154 90" stroke={WHITE} strokeWidth="3" strokeLinecap="round" />
-      <Logo x={72} y={62} w={56} h={22} />
+      <Logo x={72} y={62} w={56} h={22} variant="stealth" />
       <PixelTrail x={68} y={72} count={3} direction="left" />
       <HoloAccentLine x1={46} y1={91} x2={154} y2={91} width={1} />
     </>
@@ -347,7 +351,7 @@ function LongsleeveMockup({ view }: { view: ArkeMockupView }) {
       <path d="M52 72 L36 92" fill={INK} stroke={INK} strokeWidth="8" strokeLinecap="round" />
       <path d="M148 72 L164 92" fill={INK} stroke={INK} strokeWidth="8" strokeLinecap="round" />
       <rect x="58" y="68" width="84" height="28" rx="1" fill={INK} />
-      <Logo x={64} y={74} w={72} h={16} />
+      <Logo x={64} y={74} w={72} h={16} variant="stealth" />
       <PixelTrail x={58} y={80} count={4} direction="left" />
       <HoloAccentLine x1={88} y1={48} x2={112} y2={48} width={1.5} />
     </>

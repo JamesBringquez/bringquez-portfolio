@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { Link, NavLink, Outlet, useLocation, useSearchParams } from "react-router-dom"
 import { motion } from "framer-motion"
 import {
@@ -6,25 +6,69 @@ import {
   MagnifyingGlass,
   Plus,
   Minus,
+  Heart,
 } from "@phosphor-icons/react"
 import ArkeProductImage from "../ArkeProductImage"
 import { useArkeCart } from "./ArkeCartContext"
+import { useArkeFavorites } from "./ArkeFavoritesContext"
+import ArkeSearchPanel from "./ArkeSearchPanel"
 import ArkeHoloStyles from "./ArkeHoloStyles"
 import {
   ARKE_BASE,
   ARKE_ABOUT,
   ARKE_COLLECTIONS,
+  ARKE_FAVORITES,
   ARKE_FAVICON,
   DEFAULT_FAVICON,
   DEFAULT_TITLE,
   products,
 } from "./arkeData"
+import { formatArkePrice } from "./arkeUtils"
 
 export default function ArkeStoreLayout() {
   const location = useLocation()
   const [searchParams] = useSearchParams()
-  const { cart, cartOpen, setCartOpen, cartCount, cartTotal, adjustQty } = useArkeCart()
-  const onCollections = location.pathname === ARKE_COLLECTIONS
+  const { cart, cartOpen, setCartOpen, cartCount, cartTotal, adjustQty, bagPulse, registerBagAnchor } =
+    useArkeCart()
+  const { favoriteCount, favoritePulse } = useArkeFavorites()
+  const bagButtonRef = useRef<HTMLButtonElement>(null)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+
+  const openSearch = useCallback(() => {
+    setCartOpen(false)
+    setSearchOpen(true)
+  }, [setCartOpen])
+
+  const closeSearch = useCallback(() => {
+    setSearchOpen(false)
+    setSearchQuery("")
+  }, [])
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault()
+        setSearchOpen((open) => {
+          if (open) {
+            setSearchQuery("")
+            return false
+          }
+          setCartOpen(false)
+          return true
+        })
+      }
+    }
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [setCartOpen])
+
+  useEffect(() => {
+    registerBagAnchor(bagButtonRef.current)
+    return () => registerBagAnchor(null)
+  }, [registerBagAnchor])
+  const onCollections = location.pathname.startsWith(ARKE_COLLECTIONS)
+  const onFavorites = location.pathname === ARKE_FAVORITES
   const onAbout = location.pathname === ARKE_ABOUT
   const showingNewArrivals = onCollections && searchParams.get("tag") === "New"
 
@@ -99,32 +143,92 @@ export default function ArkeStoreLayout() {
             </NavLink>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               type="button"
-              aria-label="Search"
-              className="hidden h-10 w-10 items-center justify-center border-2 border-black bg-white sm:flex"
+              aria-label="Search products"
+              aria-expanded={searchOpen}
+              onClick={() => (searchOpen ? closeSearch() : openSearch())}
+              className={`flex h-10 w-10 items-center justify-center border-2 border-black transition-colors ${
+                searchOpen ? "bg-black text-white" : "bg-white hover:bg-black hover:text-white"
+              }`}
             >
               <MagnifyingGlass size={18} weight="bold" />
             </button>
+            <Link
+              to={ARKE_FAVORITES}
+              aria-label="View favorites"
+              aria-current={onFavorites ? "page" : undefined}
+              className={`relative flex h-10 w-10 items-center justify-center border-2 border-black transition-colors ${
+                onFavorites
+                  ? "bg-black text-white"
+                  : "bg-white hover:bg-black hover:text-white"
+              }`}
+            >
+              <motion.span
+                key={favoritePulse}
+                initial={{ scale: 1 }}
+                animate={favoritePulse > 0 ? { scale: [1, 1.2, 1] } : { scale: 1 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className="flex items-center justify-center"
+              >
+                <Heart size={18} weight={favoriteCount > 0 ? "fill" : "bold"} />
+              </motion.span>
+              {favoriteCount > 0 && (
+                <motion.span
+                  key={favoriteCount}
+                  initial={{ scale: 1.35 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 18 }}
+                  className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center bg-black text-[10px] font-black text-white ring-2 ring-white"
+                >
+                  {favoriteCount}
+                </motion.span>
+              )}
+            </Link>
             <button
+              ref={bagButtonRef}
               type="button"
               aria-label="Open shopping bag"
               aria-expanded={cartOpen}
-              onClick={() => setCartOpen(!cartOpen)}
+              onClick={() => {
+                closeSearch()
+                setCartOpen(!cartOpen)
+              }}
               className="relative flex h-11 min-w-11 shrink-0 items-center justify-center gap-2 border-2 border-black bg-black px-3 text-sm font-bold uppercase tracking-wider text-white sm:px-4"
             >
-              <ShoppingBag size={18} weight="bold" />
-              <span className="hidden sm:inline">Bag</span>
+              <motion.span
+                key={bagPulse}
+                initial={{ scale: 1 }}
+                animate={bagPulse > 0 ? { scale: [1, 1.12, 1] } : { scale: 1 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className="flex items-center justify-center gap-2"
+              >
+                <ShoppingBag size={18} weight="bold" />
+                <span className="hidden sm:inline">Bag</span>
+              </motion.span>
               {cartCount > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center bg-white text-[10px] font-black text-black ring-2 ring-black">
+                <motion.span
+                  key={cartCount}
+                  initial={{ scale: 1.35 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 18 }}
+                  className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center bg-white text-[10px] font-black text-black ring-2 ring-black"
+                >
                   {cartCount}
-                </span>
+                </motion.span>
               )}
             </button>
           </div>
         </div>
       </header>
+
+      <ArkeSearchPanel
+        open={searchOpen}
+        query={searchQuery}
+        onQueryChange={setSearchQuery}
+        onClose={closeSearch}
+      />
 
       {cartOpen && (
         <div className="fixed inset-0 z-50 flex justify-end">
@@ -166,7 +270,7 @@ export default function ArkeStoreLayout() {
                         </div>
                         <div className="min-w-0 flex-1">
                           <p className="font-bold">{p.name}</p>
-                          <p className="text-sm text-black/50">${p.price}</p>
+                          <p className="text-sm text-black/50">{formatArkePrice(p.price)}</p>
                         </div>
                         <div className="flex shrink-0 items-center gap-2">
                           <button
@@ -194,7 +298,7 @@ export default function ArkeStoreLayout() {
               <div className="border-t-2 border-black p-6">
                 <div className="mb-4 flex justify-between text-lg font-black">
                   <span>Total</span>
-                  <span>${cartTotal.toFixed(2)}</span>
+                  <span>{formatArkePrice(cartTotal)}</span>
                 </div>
                 <button
                   type="button"

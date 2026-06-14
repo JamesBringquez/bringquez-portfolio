@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react"
-import { useSearchParams } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { motion } from "framer-motion"
 import { Funnel } from "@phosphor-icons/react"
 import ArkePattern from "../ArkePattern"
 import ArkeProductImage from "../ArkeProductImage"
+import ArkeFavoriteButton from "./ArkeFavoriteButton"
 import { useArkeCart } from "./ArkeCartContext"
-import { categories, products, type ArkeCategory } from "./arkeData"
+import { useArkeFavorites } from "./ArkeFavoritesContext"
+import { categories, getProductUrl, products, type ArkeCategory } from "./arkeData"
+import { formatArkePrice } from "./arkeUtils"
 
 export default function ArkeCollections() {
   const [searchParams] = useSearchParams()
   const tagFilter = searchParams.get("tag")
   const [activeCategory, setActiveCategory] = useState<ArkeCategory>("All")
   const { addToCart } = useArkeCart()
+  const { isFavorite } = useArkeFavorites()
 
   useEffect(() => {
     setActiveCategory("All")
@@ -75,38 +79,48 @@ export default function ArkeCollections() {
               transition={{ delay: i * 0.05 }}
               className="group overflow-hidden border-2 border-black bg-white"
             >
-              <div className="relative aspect-[4/5] overflow-hidden bg-[#ececec]">
-                <ArkeProductImage
-                  name={product.name}
-                  visual={product.visual}
-                  image={product.image}
-                  modelImage={product.modelImage}
-                  className="relative z-0"
-                />
-                <span className="absolute right-0 top-0 z-10 bg-white/90 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider text-black/50 opacity-0 transition-opacity group-hover:opacity-100">
-                  Product view
-                </span>
-                {product.tag && (
-                  <span className="absolute left-0 top-0 z-10 bg-black px-3 py-1.5 text-[10px] font-black uppercase tracking-wider text-white">
-                    {product.tag}
-                  </span>
-                )}
-              </div>
-              <div className="border-t-2 border-black bg-black p-5 text-white">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-white/45">
-                  {product.category}
-                </p>
-                <h2 className="mt-1 font-black">{product.name}</h2>
-                <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <span className="text-xl font-black">${product.price}</span>
-                  <button
-                    type="button"
-                    onClick={() => addToCart(product.id)}
-                    className="arke-holo-surface min-h-11 w-full border border-white/30 px-4 py-2.5 text-xs font-black uppercase tracking-wider text-black transition-all hover:border-white sm:w-auto"
-                  >
-                    Add to Bag
-                  </button>
+              <div className="relative">
+                <Link to={getProductUrl(product.slug)} className="block">
+                  <div className="relative aspect-[4/5] overflow-hidden bg-[#ececec]">
+                    <ArkeProductImage
+                      name={product.name}
+                      visual={product.visual}
+                      image={product.image}
+                      modelImage={product.modelImage}
+                      className="relative z-0"
+                    />
+                    {product.tag && (
+                      <span className="absolute left-0 top-0 z-10 bg-black px-3 py-1.5 text-[10px] font-black uppercase tracking-wider text-white">
+                        {product.tag}
+                      </span>
+                    )}
+                  </div>
+                  <div className="border-t-2 border-black bg-black p-5 text-white transition-colors group-hover:bg-black/90">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/45">
+                      {product.category}
+                    </p>
+                    <h2 className="mt-1 font-black">{product.name}</h2>
+                    <p className="mt-3 text-xl font-black">{formatArkePrice(product.price)}</p>
+                  </div>
+                </Link>
+                <div
+                  className={`absolute right-3 top-3 z-20 rounded-full border-2 border-black bg-white shadow-sm transition-opacity ${
+                    isFavorite(product.id)
+                      ? "opacity-100"
+                      : "opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
+                  }`}
+                >
+                  <ArkeFavoriteButton productId={product.id} />
                 </div>
+              </div>
+              <div className="border-t border-white/20 bg-black px-5 pb-5">
+                <button
+                  type="button"
+                  onClick={(e) => addToCart(product.id, e.currentTarget)}
+                  className="arke-holo-surface min-h-11 w-full border border-white/30 px-4 py-2.5 text-xs font-black uppercase tracking-wider text-black transition-all hover:border-white"
+                >
+                  Add to Bag
+                </button>
               </div>
             </motion.article>
           ))}

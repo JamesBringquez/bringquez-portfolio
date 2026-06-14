@@ -3,8 +3,11 @@ import HomePage from "./pages/HomePage"
 import ProjectPage from "./pages/ProjectPage"
 import ArkeStore from "./pages/projects/ArkeStore"
 import ArkeCollections from "./pages/projects/arke/ArkeCollections"
+import ArkeProductDetail from "./pages/projects/arke/ArkeProductDetail"
 import ArkeAbout from "./pages/projects/arke/ArkeAbout"
+import ArkeFavorites from "./pages/projects/arke/ArkeFavorites"
 import { ArkeCartProvider } from "./pages/projects/arke/ArkeCartContext"
+import { ArkeFavoritesProvider } from "./pages/projects/arke/ArkeFavoritesContext"
 import ArkeStoreLayout from "./pages/projects/arke/ArkeStoreLayout"
 import SeraDiscordBot from "./pages/projects/SeraDiscordBot"
 import SeraLayout from "./pages/projects/sera/SeraLayout"
@@ -23,13 +26,17 @@ export default function App() {
       <Route
         path="/projects/arke-clothing"
         element={
-          <ArkeCartProvider>
-            <ArkeStoreLayout />
-          </ArkeCartProvider>
+          <ArkeFavoritesProvider>
+            <ArkeCartProvider>
+              <ArkeStoreLayout />
+            </ArkeCartProvider>
+          </ArkeFavoritesProvider>
         }
       >
         <Route index element={<ArkeStore />} />
         <Route path="collections" element={<ArkeCollections />} />
+        <Route path="collections/:slug" element={<ArkeProductDetail />} />
+        <Route path="favorites" element={<ArkeFavorites />} />
         <Route path="about" element={<ArkeAbout />} />
       </Route>
       <Route path="/projects/sera-discord-bot" element={<SeraLayout />}>

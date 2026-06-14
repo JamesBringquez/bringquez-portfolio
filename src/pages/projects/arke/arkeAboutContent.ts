@@ -38,7 +38,7 @@ export const arkeHistory = {
       year: "2026",
       title: "Spring / Summer collection",
       description:
-        "The current season expands the rotation with the Holo Signature Hoodie and Pearl Windbreaker — statement pieces that share the same quiet DNA as the essentials. Free shipping over $150, straightforward returns, and sizing guidance reflect how ARKĒ wants people to shop: confidently, without friction.",
+        "The current season expands the rotation with the Holo Signature Hoodie and Pearl Windbreaker — statement pieces that share the same quiet DNA as the essentials. Free shipping over ₱5,000, straightforward returns, and sizing guidance reflect how ARKĒ wants people to shop: confidently, without friction.",
     },
   ] satisfies ArkeMilestone[],
   philosophy: [

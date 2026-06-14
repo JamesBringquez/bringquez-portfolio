@@ -25,18 +25,18 @@ export default function ArkeLookbook() {
           </Link>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-12 lg:gap-5">
+        <div className="grid gap-4 lg:grid-cols-3 lg:gap-5">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="relative overflow-hidden border-2 border-black lg:col-span-7 lg:row-span-2"
+            className="relative aspect-[3/2] overflow-hidden border-2 border-black sm:aspect-[16/9] lg:col-span-3"
           >
             <img
               src={lookbookHero}
               alt="ARKĒ lookbook campaign — models in streetwear"
-              className="h-full min-h-[22rem] w-full object-cover object-center md:min-h-[28rem]"
+              className="absolute inset-0 h-full w-full object-cover object-[50%_40%] sm:object-center"
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent" />
             <p className="absolute bottom-0 left-0 p-6 text-sm font-black uppercase tracking-[0.35em] text-white">
@@ -51,7 +51,7 @@ export default function ArkeLookbook() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.08 * (i + 1) }}
-              className="group relative overflow-hidden border-2 border-black lg:col-span-5"
+              className="group relative overflow-hidden border-2 border-black"
             >
               <img
                 src={item.modelImage}
