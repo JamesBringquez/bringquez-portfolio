@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "motion/react"
 import { List, X, MapPin } from "@phosphor-icons/react"
 import { RALLY_BASE, RALLY_COURTS, RALLY_EVENTS, RALLY_JOIN, RALLY_LOGO, rallyInfo } from "./pickleballData"
 

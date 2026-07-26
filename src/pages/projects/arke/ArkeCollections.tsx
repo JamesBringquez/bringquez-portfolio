@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react"
 import { Link, useSearchParams } from "react-router-dom"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { Funnel } from "@phosphor-icons/react"
 import ArkePattern from "../ArkePattern"
 import ArkeProductImage from "../ArkeProductImage"
 import ArkeFavoriteButton from "./ArkeFavoriteButton"
-import { useArkeCart } from "./ArkeCartContext"
+import ArkeQuickAddModal from "./ArkeQuickAddModal"
 import { useArkeFavorites } from "./ArkeFavoritesContext"
-import { categories, getProductUrl, products, type ArkeCategory } from "./arkeData"
+import {
+  categories,
+  getProductUrl,
+  products,
+  type ArkeCategory,
+  type ArkeProduct,
+} from "./arkeData"
 import { formatArkePrice } from "./arkeUtils"
 
 export default function ArkeCollections() {
   const [searchParams] = useSearchParams()
   const tagFilter = searchParams.get("tag")
   const [activeCategory, setActiveCategory] = useState<ArkeCategory>("All")
-  const { addToCart } = useArkeCart()
+  const [quickAddProduct, setQuickAddProduct] = useState<ArkeProduct | null>(null)
   const { isFavorite } = useArkeFavorites()
 
   useEffect(() => {
@@ -116,7 +122,7 @@ export default function ArkeCollections() {
               <div className="border-t border-white/20 bg-black px-5 pb-5">
                 <button
                   type="button"
-                  onClick={(e) => addToCart(product.id, e.currentTarget)}
+                  onClick={() => setQuickAddProduct(product)}
                   className="arke-holo-surface min-h-11 w-full border border-white/30 px-4 py-2.5 text-xs font-black uppercase tracking-wider text-black transition-all hover:border-white"
                 >
                   Add to Bag
@@ -127,11 +133,27 @@ export default function ArkeCollections() {
         </div>
 
         {filtered.length === 0 && (
-          <p className="py-16 text-center text-sm text-black/40">
-            No pieces in this category yet.
-          </p>
+          <div className="flex flex-col items-center border-2 border-dashed border-black/20 px-6 py-16 text-center">
+            <p className="text-lg font-black text-black">No pieces in this filter</p>
+            <p className="mt-2 max-w-sm text-sm text-black/45">
+              Try another category, or browse the full collection.
+            </p>
+            <button
+              type="button"
+              onClick={() => setActiveCategory("All")}
+              className="mt-6 border-2 border-black bg-black px-6 py-3 text-xs font-black uppercase tracking-widest text-white hover:bg-white hover:text-black"
+            >
+              Show all pieces
+            </button>
+          </div>
         )}
       </main>
+
+      <ArkeQuickAddModal
+        product={quickAddProduct}
+        open={!!quickAddProduct}
+        onClose={() => setQuickAddProduct(null)}
+      />
     </>
   )
 }

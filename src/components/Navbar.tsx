@@ -1,23 +1,10 @@
 import { useState, useEffect, useRef, type MouseEvent } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "motion/react"
 import { List, X } from "@phosphor-icons/react"
 import { navLinks, personalInfo } from "../data/portfolio"
 import LogoMark from "./LogoMark"
-
-function scrollToSection(href: string) {
-  if (href === "#" || href === "") {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-    window.history.replaceState(null, "", window.location.pathname)
-    return
-  }
-
-  const id = href.replace(/^#/, "")
-  const target = document.getElementById(id)
-  if (!target) return
-
-  target.scrollIntoView({ behavior: "smooth", block: "start" })
-  window.history.replaceState(null, "", `${window.location.pathname}${href}`)
-}
+import { softSpring } from "../utils/animations"
+import { scrollToSection } from "../utils/scroll"
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -107,23 +94,28 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <a
+        <motion.a
           href="#contact"
           onClick={(e) => handleDesktopNav(e, "#contact")}
-          className="hidden rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-accent-dark hover:shadow-lg hover:shadow-accent/25 md:inline-block"
+          whileHover={{ scale: 1.04, y: -1 }}
+          whileTap={{ scale: 0.97 }}
+          transition={softSpring}
+          className="hidden rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white hover:bg-accent-dark hover:shadow-lg hover:shadow-accent/25 md:inline-block"
         >
           Get in Touch
-        </a>
+        </motion.a>
 
-        <button
+        <motion.button
           type="button"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((open) => !open)}
+          whileTap={{ scale: 0.94 }}
+          transition={softSpring}
           className="flex h-11 w-11 items-center justify-center rounded-lg border border-ink/10 text-ink transition-colors hover:bg-ink/5 md:hidden"
         >
           {mobileOpen ? <X size={22} weight="bold" /> : <List size={22} weight="bold" />}
-        </button>
+        </motion.button>
       </nav>
 
       <AnimatePresence>

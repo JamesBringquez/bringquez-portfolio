@@ -1,4 +1,4 @@
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { EnvelopeSimple, User, TennisBall } from "@phosphor-icons/react"
 import { joinSteps, rallyInfo } from "./pickleballData"
 

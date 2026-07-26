@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, Navigate, useParams } from "react-router-dom"
-import { motion } from "framer-motion"
-import { ArrowLeft, CaretRight, Star } from "@phosphor-icons/react"
+import { motion } from "motion/react"
+import { ArrowLeft, CaretRight, Star, Truck } from "@phosphor-icons/react"
 import ArkeProductImage from "../ArkeProductImage"
 import ArkeFavoriteButton from "./ArkeFavoriteButton"
 import { useArkeCart } from "./ArkeCartContext"
@@ -12,25 +12,50 @@ import {
   getReviewsForProduct,
   products,
 } from "./arkeData"
-import { formatArkePrice } from "./arkeUtils"
+import { ARKE_FREE_SHIPPING_MIN, formatArkePrice } from "./arkeUtils"
 
 export default function ArkeProductDetail() {
   const { slug } = useParams<{ slug: string }>()
   const product = slug ? getProductBySlug(slug) : undefined
-  const { addToCart } = useArkeCart()
+  const { addToCart, setCartOpen, cartTotal } = useArkeCart()
   const [selectedSize, setSelectedSize] = useState<string | null>(null)
+  const [sizeError, setSizeError] = useState(false)
   const [showProductShot, setShowProductShot] = useState(false)
+  const [addedFlash, setAddedFlash] = useState(false)
+  const [guideOpen, setGuideOpen] = useState(false)
+
+  useEffect(() => {
+    setSelectedSize(null)
+    setSizeError(false)
+    setShowProductShot(false)
+    setAddedFlash(false)
+    setGuideOpen(false)
+    window.scrollTo({ top: 0 })
+  }, [slug])
 
   if (!product) {
     return <Navigate to={ARKE_COLLECTIONS} replace />
   }
 
+  const needsSize = product.sizes.length > 1
   const productReviews = getReviewsForProduct(product.name)
-  const related = products.filter((p) => p.id !== product.id && p.category === product.category).slice(0, 2)
+  const related = products
+    .filter((p) => p.id !== product.id && p.category === product.category)
+    .slice(0, 3)
+  const remainingForShipping = Math.max(0, ARKE_FREE_SHIPPING_MIN - cartTotal)
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (product.sizes.length > 1 && !selectedSize) return
-    addToCart(product.id, e.currentTarget)
+    const size = needsSize ? selectedSize : product.sizes[0]
+    if (!size) {
+      setSizeError(true)
+      return
+    }
+    addToCart(product.id, size, e.currentTarget)
+    setAddedFlash(true)
+    window.setTimeout(() => {
+      setAddedFlash(false)
+      setCartOpen(true)
+    }, 450)
   }
 
   return (
@@ -41,11 +66,13 @@ export default function ArkeProductDetail() {
             Collections
           </Link>
           <CaretRight size={12} weight="bold" />
+          <span className="text-black/35">{product.category}</span>
+          <CaretRight size={12} weight="bold" />
           <span className="truncate text-black">{product.name}</span>
         </nav>
       </div>
 
-      <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6 md:py-14">
+      <main className="mx-auto max-w-6xl px-4 py-10 pb-28 sm:px-6 md:py-14 md:pb-14">
         <Link
           to={ARKE_COLLECTIONS}
           className="mb-8 inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-black/50 transition-colors hover:text-black"
@@ -122,14 +149,48 @@ export default function ArkeProductDetail() {
             <p className="mt-6 leading-relaxed text-black/60">{product.description}</p>
             <p className="mt-3 text-sm text-black/45">{product.designNote}</p>
 
+            <div className="mt-6 flex items-start gap-2 border border-black/10 bg-[#fafafa] px-4 py-3 text-sm text-black/55">
+              <Truck size={18} weight="bold" className="mt-0.5 shrink-0 text-black" />
+              <p>
+                {remainingForShipping > 0 ? (
+                  <>
+                    You&apos;re{" "}
+                    <span className="font-bold text-black">
+                      {formatArkePrice(remainingForShipping)}
+                    </span>{" "}
+                    away from free shipping (orders over {formatArkePrice(ARKE_FREE_SHIPPING_MIN)}).
+                  </>
+                ) : (
+                  <>Your bag already qualifies for free shipping.</>
+                )}
+              </p>
+            </div>
+
             <div className="mt-8">
-              <p className="text-xs font-black uppercase tracking-widest text-black/50">Size</p>
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-xs font-black uppercase tracking-widest text-black/50">Size</p>
+                <button
+                  type="button"
+                  onClick={() => setGuideOpen((v) => !v)}
+                  className="text-[11px] font-bold uppercase tracking-wider text-black/45 underline-offset-2 hover:text-black hover:underline"
+                >
+                  {guideOpen ? "Hide size guide" : "Size guide"}
+                </button>
+              </div>
+              {sizeError && (
+                <p className="mt-2 text-xs font-bold text-red-600" role="alert">
+                  Please select a size
+                </p>
+              )}
               <div className="mt-3 flex flex-wrap gap-2">
                 {product.sizes.map((size) => (
                   <button
                     key={size}
                     type="button"
-                    onClick={() => setSelectedSize(size)}
+                    onClick={() => {
+                      setSelectedSize(size)
+                      setSizeError(false)
+                    }}
                     className={`min-h-11 min-w-11 border-2 px-4 py-2 text-sm font-bold transition-colors ${
                       selectedSize === size
                         ? "border-black bg-black text-white"
@@ -140,16 +201,25 @@ export default function ArkeProductDetail() {
                   </button>
                 ))}
               </div>
+              {guideOpen && (
+                <div className="mt-4 border-2 border-black/10 bg-white p-4 text-sm text-black/60">
+                  <p className="font-bold text-black">Fit tip</p>
+                  <p className="mt-1">{product.fit}</p>
+                  <p className="mt-3 text-xs text-black/45">
+                    Sizes are approximate for this demo. In a live store this would include a full
+                    measurement chart (chest, waist, length).
+                  </p>
+                </div>
+              )}
             </div>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="mt-8 hidden flex-wrap items-center gap-4 md:flex">
               <button
                 type="button"
                 onClick={handleAddToCart}
-                disabled={product.sizes.length > 1 && !selectedSize}
-                className="arke-holo-surface border-2 border-black py-4 text-sm font-black uppercase tracking-widest text-black transition-opacity disabled:cursor-not-allowed disabled:opacity-40 sm:px-12"
+                className="arke-holo-surface min-w-[12rem] border-2 border-black px-10 py-4 text-sm font-black uppercase tracking-widest text-black"
               >
-                Add to Bag
+                {addedFlash ? "Added ✓" : "Add to Bag"}
               </button>
               <div className="flex items-center gap-2 border-2 border-black/15 px-3 py-2">
                 <ArkeFavoriteButton productId={product.id} size={22} className="h-9 w-9" />
@@ -167,18 +237,18 @@ export default function ArkeProductDetail() {
                 <dd className="mt-1 text-sm text-black/70">{product.fit}</dd>
               </div>
               <div>
-                <dt className="text-xs font-black uppercase tracking-widest text-black/40">Logo</dt>
+                <dt className="text-xs font-black uppercase tracking-widest text-black/40">Care</dt>
                 <dd className="mt-1 text-sm text-black/70">
-                  {product.logoVariant === "dark"
-                    ? "Stealth mark — black garment only"
-                    : "Light mark — high contrast on light fabric"}
+                  Cold wash inside out · hang dry · do not bleach
                 </dd>
               </div>
             </dl>
 
             {productReviews.length > 0 && (
               <div className="mt-10 border-t-2 border-black/10 pt-8">
-                <p className="text-xs font-black uppercase tracking-widest text-black/40">Reviews</p>
+                <p className="text-xs font-black uppercase tracking-widest text-black/40">
+                  Concept reviews
+                </p>
                 {productReviews.map((review) => (
                   <blockquote key={review.id} className="mt-4 border-l-2 border-black pl-4">
                     <div className="flex items-center gap-1" aria-label={`${review.rating} out of 5 stars`}>
@@ -199,15 +269,17 @@ export default function ArkeProductDetail() {
 
         {related.length > 0 && (
           <section className="mt-16 border-t-2 border-black pt-12 md:mt-20">
-            <h2 className="text-xl font-black uppercase tracking-wider text-black">You may also like</h2>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2">
+            <h2 className="text-xl font-black uppercase tracking-wider text-black">
+              You may also like
+            </h2>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((item) => (
                 <Link
                   key={item.id}
                   to={getProductUrl(item.slug)}
                   className="group flex gap-4 border-2 border-black bg-white p-4 transition-colors hover:bg-black hover:text-white"
                 >
-                  <div className="h-24 w-20 shrink-0 overflow-hidden border border-black/10">
+                  <div className="h-24 w-20 shrink-0 overflow-hidden border border-black/10 bg-[#ececec]">
                     <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
                   </div>
                   <div>
@@ -223,6 +295,26 @@ export default function ArkeProductDetail() {
           </section>
         )}
       </main>
+
+      {/* Sticky mobile purchase bar */}
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t-2 border-black bg-white p-3 md:hidden">
+        <div className="mx-auto flex max-w-6xl items-center gap-3">
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-black">{product.name}</p>
+            <p className="text-xs font-bold text-black/50">
+              {selectedSize ? `Size ${selectedSize}` : "Select a size"} ·{" "}
+              {formatArkePrice(product.price)}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            className="arke-holo-surface shrink-0 border-2 border-black px-5 py-3 text-xs font-black uppercase tracking-widest text-black"
+          >
+            {addedFlash ? "Added ✓" : "Add to Bag"}
+          </button>
+        </div>
+      </div>
     </>
   )
 }

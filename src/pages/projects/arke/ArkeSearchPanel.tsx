@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef } from "react"
 import { Link } from "react-router-dom"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, motion } from "motion/react"
 import { MagnifyingGlass, X } from "@phosphor-icons/react"
 import ArkeProductImage from "../ArkeProductImage"
-import { getProductUrl, searchProducts } from "./arkeData"
+import { getProductUrl, searchProducts, ARKE_COLLECTIONS } from "./arkeData"
 import { formatArkePrice } from "./arkeUtils"
 
 type ArkeSearchPanelProps = {
@@ -91,9 +91,21 @@ export default function ArkeSearchPanel({
                   </p>
                 </div>
               ) : results.length === 0 ? (
-                <p className="px-3 py-10 text-center text-sm text-black/40">
-                  No pieces match &ldquo;{query.trim()}&rdquo;
-                </p>
+                <div className="px-3 py-10 text-center">
+                  <p className="text-sm font-bold text-black/50">
+                    No pieces match &ldquo;{query.trim()}&rdquo;
+                  </p>
+                  <p className="mt-2 text-xs text-black/35">
+                    Try another keyword, or browse the full collection.
+                  </p>
+                  <Link
+                    to={ARKE_COLLECTIONS}
+                    onClick={onClose}
+                    className="mt-5 inline-block border-2 border-black px-5 py-2.5 text-[11px] font-black uppercase tracking-widest hover:bg-black hover:text-white"
+                  >
+                    Browse collections
+                  </Link>
+                </div>
               ) : (
                 <ul className="space-y-1">
                   {results.map((product, i) => (

@@ -1,17 +1,18 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, motion } from "motion/react"
 import { Heart, ShoppingBag } from "@phosphor-icons/react"
 import ArkePattern from "../ArkePattern"
 import ArkeProductImage from "../ArkeProductImage"
 import ArkeFavoriteButton from "./ArkeFavoriteButton"
-import { useArkeCart } from "./ArkeCartContext"
+import ArkeQuickAddModal from "./ArkeQuickAddModal"
 import { useArkeFavorites } from "./ArkeFavoritesContext"
-import { ARKE_COLLECTIONS, getProductUrl } from "./arkeData"
+import { ARKE_COLLECTIONS, getProductUrl, type ArkeProduct } from "./arkeData"
 import { formatArkePrice } from "./arkeUtils"
 
 export default function ArkeFavorites() {
   const { favoriteProducts } = useArkeFavorites()
-  const { addToCart } = useArkeCart()
+  const [quickAddProduct, setQuickAddProduct] = useState<ArkeProduct | null>(null)
 
   return (
     <>
@@ -121,7 +122,7 @@ export default function ArkeFavorites() {
                   <div className="flex border-t border-white/20 bg-black">
                     <button
                       type="button"
-                      onClick={(e) => addToCart(product.id, e.currentTarget)}
+                      onClick={() => setQuickAddProduct(product)}
                       className="arke-holo-surface flex min-h-11 flex-1 items-center justify-center gap-2 border-r border-white/20 px-4 py-2.5 text-xs font-black uppercase tracking-wider text-black transition-all hover:border-white"
                     >
                       <ShoppingBag size={16} weight="bold" />
@@ -140,6 +141,12 @@ export default function ArkeFavorites() {
           </motion.div>
         )}
       </main>
+
+      <ArkeQuickAddModal
+        product={quickAddProduct}
+        open={!!quickAddProduct}
+        onClose={() => setQuickAddProduct(null)}
+      />
     </>
   )
 }

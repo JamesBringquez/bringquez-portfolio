@@ -1,4 +1,4 @@
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "motion/react"
 import {
   ArrowDown,
   ArrowRight,
@@ -6,24 +6,45 @@ import {
 import { personalInfo, images } from "../data/portfolio"
 import SocialLinks from "./SocialLinks"
 import PortfolioImage from "./PortfolioImage"
-import { fadeInUp, fadeInRight, staggerContainer, defaultTransition } from "../utils/animations"
+import {
+  fadeInUp,
+  fadeInRight,
+  blurInUp,
+  staggerSlow,
+  defaultTransition,
+  softSpring,
+} from "../utils/animations"
 
 export default function Hero() {
+  const reduceMotion = useReducedMotion()
+
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden section-padding pt-32">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-accent/5 animate-pulse-ring" />
-        <div className="absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-ink/5 animate-float" />
+        <motion.div
+          className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-accent/5"
+          animate={
+            reduceMotion
+              ? undefined
+              : { scale: [0.95, 1.05, 0.95], opacity: [0.45, 0.2, 0.45] }
+          }
+          transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-ink/5"
+          animate={reduceMotion ? undefined : { y: [0, -14, 0] }}
+          transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
+        />
       </div>
 
       <div className="container-wide relative z-10">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <motion.div
-            variants={staggerContainer}
+            variants={staggerSlow}
             initial="hidden"
             animate="visible"
           >
-            <motion.div variants={fadeInUp} transition={defaultTransition}>
+            <motion.div variants={blurInUp} transition={defaultTransition}>
               <span className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent-muted/50 px-4 py-1.5 text-sm font-medium text-accent-dark">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
@@ -34,8 +55,8 @@ export default function Hero() {
             </motion.div>
 
             <motion.h1
-              variants={fadeInUp}
-              transition={{ ...defaultTransition, delay: 0.1 }}
+              variants={blurInUp}
+              transition={{ ...defaultTransition, delay: 0.05 }}
               className="mt-8 text-5xl font-extrabold leading-[1.05] tracking-tight text-ink md:text-6xl lg:text-7xl"
             >
               Hi, I&apos;m{" "}
@@ -45,7 +66,7 @@ export default function Hero() {
                   className="absolute -bottom-1 left-0 h-3 w-full bg-accent/20"
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
-                  transition={{ delay: 0.8, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ delay: 0.85, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
                   style={{ originX: 0 }}
                 />
               </span>
@@ -53,33 +74,31 @@ export default function Hero() {
 
             <motion.p
               variants={fadeInUp}
-              transition={{ ...defaultTransition, delay: 0.2 }}
-              className="mt-4 text-xl font-semibold text-ink-muted md:text-2xl"
+              transition={{ ...defaultTransition, delay: 0.1 }}
+              className="mt-4 text-xl font-semibold text-ink md:text-2xl"
             >
-              {personalInfo.name}
+              {personalInfo.role}
             </motion.p>
 
             <motion.p
               variants={fadeInUp}
-              transition={{ ...defaultTransition, delay: 0.3 }}
+              transition={{ ...defaultTransition, delay: 0.15 }}
               className="mt-6 max-w-xl text-lg leading-relaxed text-ink-subtle"
             >
-              {personalInfo.tagline}{" "}
-              <span className="font-medium text-ink">
-                Web Developer, Web Designer & Front-end Developer
-              </span>{" "}
-              with a growing passion for{" "}
-              <span className="font-medium text-accent">UI/UX design</span>.
+              {personalInfo.tagline}
             </motion.p>
 
             <motion.div
               variants={fadeInUp}
-              transition={{ ...defaultTransition, delay: 0.4 }}
+              transition={{ ...defaultTransition, delay: 0.2 }}
               className="mt-10 flex flex-wrap items-center gap-4"
             >
-              <a
+              <motion.a
                 href="#projects"
-                className="group inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-surface transition-all duration-300 hover:bg-ink/90 hover:shadow-xl hover:shadow-ink/20"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={softSpring}
+                className="group inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-surface shadow-lg shadow-ink/10"
               >
                 View My Work
                 <ArrowRight
@@ -87,18 +106,21 @@ export default function Hero() {
                   weight="bold"
                   className="transition-transform duration-300 group-hover:translate-x-1"
                 />
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border-2 border-ink/10 px-7 py-3.5 text-sm font-semibold text-ink transition-all duration-300 hover:border-accent hover:text-accent"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={softSpring}
+                className="inline-flex items-center gap-2 rounded-full border-2 border-ink/10 px-7 py-3.5 text-sm font-semibold text-ink hover:border-accent hover:text-accent"
               >
                 Let&apos;s Connect
-              </a>
+              </motion.a>
             </motion.div>
 
             <motion.div
               variants={fadeInUp}
-              transition={{ ...defaultTransition, delay: 0.5 }}
+              transition={{ ...defaultTransition, delay: 0.25 }}
               className="mt-12"
             >
               <SocialLinks variant="hero" />
@@ -109,21 +131,25 @@ export default function Hero() {
             variants={fadeInRight}
             initial="hidden"
             animate="visible"
-            transition={{ ...defaultTransition, delay: 0.3 }}
+            transition={{ ...defaultTransition, delay: 0.2 }}
             className="relative mx-auto w-full max-w-lg lg:max-w-none"
           >
             <div className="relative">
-              <div className="overflow-hidden rounded-3xl border border-ink/5 shadow-2xl shadow-ink/10">
+              <motion.div
+                className="overflow-hidden rounded-3xl border border-ink/5 shadow-2xl shadow-ink/10"
+                whileHover={reduceMotion ? undefined : { y: -6 }}
+                transition={softSpring}
+              >
                 <PortfolioImage
                   src={images.hero}
                   alt="Developer workspace with laptop and code on screen"
                   wrapperClassName="aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5]"
                   priority
                 />
-              </div>
+              </motion.div>
               <motion.div
                 className="absolute -bottom-6 -left-6 hidden overflow-hidden rounded-2xl border-4 border-surface shadow-xl sm:block sm:w-40"
-                animate={{ y: [0, -8, 0] }}
+                animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
                 transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
               >
                 <PortfolioImage
@@ -132,7 +158,11 @@ export default function Hero() {
                   wrapperClassName="aspect-square w-40"
                 />
               </motion.div>
-              <div className="absolute -right-4 -top-4 h-24 w-24 rounded-full border-2 border-accent/30 bg-accent/10" />
+              <motion.div
+                className="absolute -right-4 -top-4 h-24 w-24 rounded-full border-2 border-accent/30 bg-accent/10"
+                animate={reduceMotion ? undefined : { scale: [1, 1.08, 1] }}
+                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+              />
             </div>
           </motion.div>
         </div>
@@ -142,13 +172,14 @@ export default function Hero() {
         href="#about"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
+        transition={{ delay: 1.1, duration: 0.6 }}
+        whileHover={{ y: 4 }}
         className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-ink-subtle transition-colors hover:text-accent"
         aria-label="Scroll to about section"
       >
         <span className="text-xs font-medium uppercase tracking-widest">Scroll</span>
         <motion.div
-          animate={{ y: [0, 8, 0] }}
+          animate={reduceMotion ? undefined : { y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
         >
           <ArrowDown size={20} weight="bold" />

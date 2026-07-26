@@ -1,10 +1,15 @@
 export const personalInfo = {
   name: "James Matthew P. Bringquez",
   firstName: "James",
-  title: "Web Developer & Designer",
-  tagline: "Crafting digital experiences at the intersection of code and design.",
+  title: "Front-end Developer",
+  /** One-line positioning shown in the hero */
+  role: "Front-end Developer with an eye for design",
+  tagline:
+    "I build responsive web interfaces with React and TypeScript — and I care how they look and feel.",
   email: "jamesbringquez@gmail.com",
   location: "Philippines",
+  /** Place your PDF at public/resume/James-Matthew-Bringquez-Resume.pdf */
+  resumeUrl: "/resume/James-Matthew-Bringquez-Resume.pdf",
   social: {
     github: "https://github.com/JamesBringquez",
     linkedin: "https://www.linkedin.com/in/james-matthew-bringquez/",
@@ -85,39 +90,33 @@ export const roles = [
   },
 ]
 
-/** Display order for Skills & Tools section */
-export const skillCategories = [
-  "Framework",
-  "Programming",
-  "Styling",
-  "Database",
-  "Platforms",
-  "Design",
-  "Tools",
-  "Technical Support",
-  "Spoken Languages",
-  "Certifications",
-  "Soft Skills",
+/** Stack used daily on the job — shown first and loudest */
+export const primaryStack = [
+  "C#",
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "Bootstrap",
+  "SSMS / SQL Server",
+  "MySQL",
+  "jQuery",
 ] as const
 
-export const skills = [
-  { name: "React", category: "Framework" },
-  { name: "TypeScript", category: "Programming" },
-  { name: "JavaScript", category: "Programming" },
-  { name: "C# / ASP.NET", category: "Programming" },
-  { name: "HTML", category: "Programming" },
-  { name: "jQuery", category: "Programming" },
-  { name: "CSS", category: "Styling" },
-  { name: "Tailwind CSS", category: "Styling" },
-  { name: "Bootstrap", category: "Styling" },
-  { name: "MySQL", category: "Database" },
-  { name: "MSSQL", category: "Database" },
-  { name: "WordPress", category: "Platforms" },
-  { name: "Wix", category: "Platforms" },
-  { name: "Figma", category: "Design" },
-  { name: "Responsive Design", category: "Design" },
-  { name: "UI/UX Principles", category: "Design" },
-  { name: "Git", category: "Tools" },
+/** Skills I’m actively building fluency in — shown quieter */
+export const learningStack = [
+  "React",
+  "TypeScript",
+  "Tailwind CSS",
+  "Figma",
+  "UI/UX Principles",
+  "Responsive Design",
+  "Git",
+  "WordPress",
+  "Wix",
+] as const
+
+/** Supporting context — compact, lowest visual weight */
+export const supportingSkills = [
   { name: "Desktop Application Support", category: "Technical Support" },
   { name: "Technical Support", category: "Technical Support" },
   { name: "Computer Hardware Troubleshooting", category: "Technical Support" },
@@ -127,7 +126,8 @@ export const skills = [
   { name: "Effectivity", category: "Soft Skills" },
   { name: "Adaptability", category: "Soft Skills" },
   { name: "Problem-solving", category: "Soft Skills" },
-]
+] as const
+
 
 /**
  * Featured Projects
@@ -343,9 +343,9 @@ export const workExperience = [
 
 export const navLinks = [
   { label: "About", href: "#about" },
+  { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
   { label: "Services", href: "#services" },
   { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
   { label: "Contact", href: "#contact" },
 ]

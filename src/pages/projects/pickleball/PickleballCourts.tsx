@@ -1,4 +1,4 @@
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { Sun, CloudRain } from "@phosphor-icons/react"
 import { courts, rallyAmenities } from "./pickleballData"
 

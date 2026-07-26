@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "motion/react"
 import { List, X } from "@phosphor-icons/react"
 import { SERA_BASE, SERA_LOGO, SERA_PRIVACY, SERA_TERMS } from "./seraData"
 

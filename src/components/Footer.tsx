@@ -1,8 +1,9 @@
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { Heart, ArrowUp } from "@phosphor-icons/react"
 import { personalInfo, navLinks } from "../data/portfolio"
 import LogoMark from "./LogoMark"
 import SocialLinks from "./SocialLinks"
+import { scrollToSection } from "../utils/scroll"
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -24,6 +25,10 @@ export default function Footer() {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={(e) => {
+                  e.preventDefault()
+                  scrollToSection(link.href)
+                }}
                 className="text-sm text-white/50 transition-colors duration-300 hover:text-accent-light"
               >
                 {link.label}
@@ -35,6 +40,10 @@ export default function Footer() {
             <SocialLinks variant="footer" includePersonal />
             <motion.a
               href="#"
+              onClick={(e) => {
+                e.preventDefault()
+                scrollToSection("#")
+              }}
               whileHover={{ y: -4 }}
               className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-white/50 transition-all duration-300 hover:border-accent hover:bg-accent hover:text-white"
               aria-label="Back to top"

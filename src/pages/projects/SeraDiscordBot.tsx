@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { useState } from "react"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import {
   MusicNotes,
   Translate,

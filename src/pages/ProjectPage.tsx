@@ -1,5 +1,5 @@
 import { useParams, Navigate } from "react-router-dom"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import {
   ArrowSquareOut,
   GithubLogo,

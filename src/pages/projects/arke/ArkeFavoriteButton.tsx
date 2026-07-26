@@ -1,4 +1,4 @@
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { Heart } from "@phosphor-icons/react"
 import { useArkeFavorites } from "./ArkeFavoritesContext"
 

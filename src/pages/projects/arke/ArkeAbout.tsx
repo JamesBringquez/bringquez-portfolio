@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import ArkePattern from "../ArkePattern"
 import { ARKE_COLLECTIONS } from "./arkeData"
 import { arkeHistory } from "./arkeAboutContent"

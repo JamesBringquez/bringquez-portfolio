@@ -6,6 +6,7 @@ import ArkeCollections from "./pages/projects/arke/ArkeCollections"
 import ArkeProductDetail from "./pages/projects/arke/ArkeProductDetail"
 import ArkeAbout from "./pages/projects/arke/ArkeAbout"
 import ArkeFavorites from "./pages/projects/arke/ArkeFavorites"
+import ArkeCheckout from "./pages/projects/arke/ArkeCheckout"
 import { ArkeCartProvider } from "./pages/projects/arke/ArkeCartContext"
 import { ArkeFavoritesProvider } from "./pages/projects/arke/ArkeFavoritesContext"
 import ArkeStoreLayout from "./pages/projects/arke/ArkeStoreLayout"
@@ -38,6 +39,7 @@ export default function App() {
         <Route path="collections/:slug" element={<ArkeProductDetail />} />
         <Route path="favorites" element={<ArkeFavorites />} />
         <Route path="about" element={<ArkeAbout />} />
+        <Route path="checkout" element={<ArkeCheckout />} />
       </Route>
       <Route path="/projects/sera-discord-bot" element={<SeraLayout />}>
         <Route index element={<SeraDiscordBot />} />

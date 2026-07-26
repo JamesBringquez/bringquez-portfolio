@@ -1,9 +1,10 @@
 import type { ReactNode } from "react"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { Briefcase, GraduationCap, MapPin, Calendar } from "@phosphor-icons/react"
 import { education, workExperience, experience } from "../data/portfolio"
 import {
   fadeInUp,
+  blurInUp,
   staggerContainer,
   defaultTransition,
   viewportOnce,
@@ -32,7 +33,7 @@ function TimelineCard({
 
 function HighlightList({ items }: { items: string[] }) {
   return (
-    <ul className="mt-4 space-y-2">
+    <ul className="mt-3 space-y-2">
       {items.map((item) => (
         <li
           key={item}
@@ -56,22 +57,22 @@ export default function Experience() {
           viewport={viewportOnce}
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp} transition={defaultTransition} className="mb-16">
+          <motion.div variants={blurInUp} transition={defaultTransition} className="section-header">
             <span className="text-sm font-semibold uppercase tracking-widest text-accent">
               Background
             </span>
             <h2 className="mt-3 text-4xl font-bold tracking-tight text-ink md:text-5xl">
               Education & Experience
             </h2>
-            <p className="mt-4 max-w-2xl text-lg text-ink-subtle">
+            <p className="mt-4 max-w-2xl text-base leading-7 text-ink-subtle md:text-lg md:leading-8">
               {experience.fullLabel} of hands-on work in {experience.field.toLowerCase()}, backed
               by formal training and continuous learning in design and front-end development.
             </p>
           </motion.div>
 
-          <div className="grid gap-16 lg:grid-cols-2 lg:gap-20">
+          <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
             <motion.div variants={fadeInUp} transition={defaultTransition}>
-              <div className="mb-8 flex items-center gap-3">
+              <div className="mb-6 flex items-center gap-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-ink text-surface">
                   <Briefcase size={24} weight="duotone" />
                 </div>
@@ -81,10 +82,10 @@ export default function Experience() {
                 </div>
               </div>
 
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {workExperience.map((job, index) => (
                   <TimelineCard key={job.id} index={index}>
-                    <article className="rounded-2xl border border-ink/5 bg-surface-muted p-6 transition-all duration-300 hover:border-accent/30 hover:shadow-md">
+                    <article className="rounded-2xl border border-ink/5 bg-surface-muted p-5 transition-all duration-300 hover:border-accent/30 hover:shadow-md md:p-6">
                       <div className="flex flex-wrap items-start justify-between gap-2">
                         <div>
                           <h4 className="text-lg font-bold text-ink">{job.role}</h4>
@@ -114,7 +115,7 @@ export default function Experience() {
             </motion.div>
 
             <motion.div variants={fadeInUp} transition={defaultTransition}>
-              <div className="mb-8 flex items-center gap-3">
+              <div className="mb-6 flex items-center gap-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent text-white">
                   <GraduationCap size={24} weight="duotone" />
                 </div>
@@ -124,10 +125,10 @@ export default function Experience() {
                 </div>
               </div>
 
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {education.map((item, index) => (
                   <TimelineCard key={item.id} index={index}>
-                    <article className="rounded-2xl border border-ink/5 bg-surface-muted p-6 transition-all duration-300 hover:border-accent/30 hover:shadow-md">
+                    <article className="rounded-2xl border border-ink/5 bg-surface-muted p-5 transition-all duration-300 hover:border-accent/30 hover:shadow-md md:p-6">
                       <h4 className="text-lg font-bold text-ink">{item.degree}</h4>
                       <p className="mt-1 font-medium text-accent">{item.school}</p>
 

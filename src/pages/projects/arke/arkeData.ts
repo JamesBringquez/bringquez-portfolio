@@ -260,6 +260,7 @@ export const ARKE_BASE = "/projects/arke-clothing"
 export const ARKE_COLLECTIONS = `${ARKE_BASE}/collections`
 export const ARKE_FAVORITES = `${ARKE_BASE}/favorites`
 export const ARKE_ABOUT = `${ARKE_BASE}/about`
+export const ARKE_CHECKOUT = `${ARKE_BASE}/checkout`
 export const ARKE_FAVICON = "/images/arke-favicon.png"
 export const DEFAULT_FAVICON = "/images/logo.png"
 export const DEFAULT_TITLE = "James Matthew P. Bringquez | Portfolio"

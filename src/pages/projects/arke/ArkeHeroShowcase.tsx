@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, motion } from "motion/react"
 import { CaretLeft, CaretRight, Pause, Play } from "@phosphor-icons/react"
 import { ARKE_COLLECTIONS, getProductUrl, heroShowcase } from "./arkeData"
 
@@ -73,7 +73,8 @@ export default function ArkeHeroShowcase() {
         </motion.div>
       </AnimatePresence>
 
-      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/90 via-black/15 to-black/25" />
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/92 via-black/35 to-black/40" />
+      <div className="pointer-events-none absolute inset-0 bg-black/10" />
       <div className="pointer-events-none absolute inset-0 arke-holo-overlay opacity-10" />
 
       {/* Collage strip — desktop side rail */}
