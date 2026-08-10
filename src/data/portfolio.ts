@@ -299,25 +299,11 @@ export const workExperience = [
     ],
   },
   {
-    id: 2,
-    role: "IT Technician",
-    company: "Statefields School Incorporated (IT Department)",
-    location: "Philippines",
-    period: "2024 – 2025",
-    type: "Full-time",
-    highlights: [
-      "Provided user-focused technical support to improve overall system usability and efficiency",
-      "Assisted users in resolving hardware and software issues with clear communication and guidance",
-      "Maintained desktop systems to ensure smooth and uninterrupted user experience",
-      "Supported device setup and configuration, enhancing accessibility for end-users",
-    ],
-  },
-  {
     id: 3,
     role: "Junior Programmer",
     company: "Statefields School Incorporated (IT Department)",
     location: "Philippines",
-    period: "2024",
+    period: "2024-2025",
     type: "Full-time",
     highlights: [
       "Managed the front-end of the school's portal using C# ASPX",
